@@ -15,6 +15,7 @@ public class MatchHistoryApp {
     private MatchHistory matchHistory;
     private String userName;
     private Scanner input;
+    private AgentType agent;
 
     // EFFECTS: Constructs a match history application with the user's name and runs the application
     public MatchHistoryApp(String userName) {
@@ -55,34 +56,46 @@ public class MatchHistoryApp {
 
     // MODIFIES: this
     // EFFECTS: Processes user's command
+    @SuppressWarnings("methodlength")
     private void processCommand(String command) {
         if (command.equals("ADD")) {
-            doAddGame(matchHistory, game);
+            System.out.println("Enter win or lose: ");
+            String gameStatus = input.next().toLowerCase();
+            System.out.println("Enter your team's points: ");
+            int points = input.nextInt();
+            System.out.println("Enter the enemy team's points: ");
+            int enemyPoints = input.nextInt();
+            System.out.print("Enter name of agent:");
+            String played = input.next().toUpperCase();
+            AgentType gameType = getType(played);
+            doAddGame(matchHistory, new Game(gameStatus, points, enemyPoints, gameType));
             System.out.println("Added a game to match history");
         } else if (command.equals("VIEW")) {
             String history = doDisplayMatches(matchHistory);
             System.out.println("Here is your match history:");
             System.out.println(userName + ": " + history);
-        } else if (command.equals("CALCULATE")) {
+        } else if (command.equals("WINRATE")) {
             System.out.println("Calculating...");
             double wr = doCalculate(matchHistory);
             System.out.println("Your win rate is: " + wr + "%");
         } else if (command.equals("AGENT")) {
-            int numGamesPlayed = doCalculateMostPlayedAgent(matchHistory, PHOENIX);
-            System.out.println(numGamesPlayed);
+            System.out.print("Enter name of agent:");
+            String type = input.next().toUpperCase();
+            int numGamesPlayed = doCalculateNumGamesPlayedAgent(matchHistory, type);
+            System.out.println(type + ": " + numGamesPlayed);
         } else {
-            System.out.println("Selection not valid");
+            System.out.println("Selection is not valid");
         }
     }
 
     // EFFECTS: Displays menu to user
     private void displayMenu() {
         System.out.println("\nSelect from:");
-        System.out.println("\t1. ADD -> Add match");
-        System.out.println("\t2. VIEW -> View match history");
-        System.out.println("\t3. CALCULATE -> Calculate win rate");
-        System.out.println("\t4. AGENT -> View your most played agent");
-        System.out.println("\t5. QUIT -> Quit");
+        System.out.println("\t1. ADD -> Add a match");
+        System.out.println("\t2. VIEW -> View your most recent match");
+        System.out.println("\t3. WINRATE -> Calculate your win rate");
+        System.out.println("\t4. AGENT -> Calculate the number of times you played a certain agent");
+        System.out.println("\t5. QUIT -> Quit program");
     }
 
     // MODIFIES: this
@@ -103,7 +116,23 @@ public class MatchHistoryApp {
         return mh.calculateWinRate();
     }
 
-    private int doCalculateMostPlayedAgent(MatchHistory mh, AgentType agent) {
+    private AgentType getType(String type) {
+        if (type.equals("SOVA")) {
+            this.agent = SOVA;
+        } else if (type.equals("SAGE")) {
+            this.agent = SAGE;
+        } else if (type.equals("PHOENIX")) {
+            this.agent = PHOENIX;
+        } else if (type.equals("BRIMSTONE")) {
+            this.agent = BRIMSTONE;
+        } else {
+            this.agent = JETT;
+        }
+        return agent;
+    }
+
+    private int doCalculateNumGamesPlayedAgent(MatchHistory mh, String type) {
+        getType(type);
         return mh.calculateNumGamesPlayedAgent(agent);
     }
 

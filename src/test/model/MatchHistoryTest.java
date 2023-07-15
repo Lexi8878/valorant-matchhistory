@@ -10,6 +10,7 @@ import static model.AgentType.*;
 public class MatchHistoryTest {
     MatchHistory mh1;
     MatchHistory mh2;
+    MatchHistory mh3;
     Game g;
     Game g2;
     Game g3;
@@ -18,6 +19,7 @@ public class MatchHistoryTest {
     void runBefore() {
         mh1 = new MatchHistory();
         mh2 = new MatchHistory();
+        mh3 = new MatchHistory();
         g = new Game("win", 13, 0, SOVA);
         g2 = new Game("lose", 5, 13, SOVA);
         g3 = new Game("win", 13, 12, JETT);
@@ -27,6 +29,7 @@ public class MatchHistoryTest {
     void testMatchHistory() {
         assertEquals(0, mh1.getNumGames());
         assertEquals(0, mh2.getNumGames());
+        assertEquals(0, mh3.getNumGames());
     }
 
     @Test
@@ -41,6 +44,8 @@ public class MatchHistoryTest {
         assertEquals(1, mh2.getNumGamesWon());
         mh2.addGame(g3);
         assertEquals(3, mh2.getNumGames());
+
+        assertEquals(0, mh3.getNumGames());
     }
 
     @Test
@@ -56,6 +61,14 @@ public class MatchHistoryTest {
     }
 
     @Test
+    void testGetNumGamesWon() {
+        mh1.addGame(g);
+        assertEquals(1, mh1.getNumGamesWon());
+
+        assertEquals(0, mh3.getNumGamesWon());
+    }
+
+    @Test
     void testCalculateWinRate() {
         mh1.addGame(g);
         assertEquals(100, mh1.calculateWinRate());
@@ -63,6 +76,11 @@ public class MatchHistoryTest {
         mh2.addGame(g);
         mh2.addGame(g2);
         assertEquals(50, mh2.calculateWinRate());
+
+        mh3.addGame(g);
+        mh3.addGame(g2);
+        mh3.addGame(g3);
+        assertEquals(66.66666666666666, mh3.calculateWinRate());
     }
 
     @Test
@@ -76,5 +94,7 @@ public class MatchHistoryTest {
         assertEquals(2, mh2.calculateNumGamesPlayedAgent(SOVA));
         mh2.addGame(g3);
         assertEquals(2, mh2.calculateNumGamesPlayedAgent(SOVA));
+
+        assertEquals(0, mh3.calculateNumGamesPlayedAgent(JETT));
     }
 }
