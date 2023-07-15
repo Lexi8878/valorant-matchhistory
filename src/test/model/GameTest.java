@@ -27,6 +27,13 @@ class GameTest {
         assertEquals("win", g1.getStatus());
         assertEquals(13, g1.getTeamPoints());
         assertEquals(0, g1.getEnemyPoints());
+        assertEquals(SOVA, g1.getAgent());
+
+        assertEquals("lose", g2.getStatus());
+        assertEquals(1, g2.getTeamPoints());
+        assertEquals(13, g2.getEnemyPoints());
+        assertEquals(SAGE, g2.getAgent());
+
     }
 
     @Test

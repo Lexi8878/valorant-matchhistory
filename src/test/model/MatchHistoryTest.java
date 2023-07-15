@@ -12,6 +12,7 @@ public class MatchHistoryTest {
     MatchHistory mh2;
     Game g;
     Game g2;
+    Game g3;
 
     @BeforeEach
     void runBefore() {
@@ -19,6 +20,7 @@ public class MatchHistoryTest {
         mh2 = new MatchHistory();
         g = new Game("win", 13, 0, SOVA);
         g2 = new Game("lose", 5, 13, SOVA);
+        g3 = new Game("win", 13, 12, JETT);
     }
 
     @Test
@@ -37,6 +39,8 @@ public class MatchHistoryTest {
         mh2.addGame(g2);
         assertEquals(2, mh2.getNumGames());
         assertEquals(1, mh2.getNumGamesWon());
+        mh2.addGame(g3);
+        assertEquals(3, mh2.getNumGames());
     }
 
     @Test
@@ -47,6 +51,8 @@ public class MatchHistoryTest {
         mh2.addGame(g);
         mh2.addGame(g2);
         assertEquals("LOSE 5-13", mh2.getDisplay());
+        mh2.addGame(g3);
+        assertEquals("WIN 13-12", mh2.getDisplay());
     }
 
     @Test
@@ -67,6 +73,8 @@ public class MatchHistoryTest {
 
         mh2.addGame(g);
         mh2.addGame(g2);
+        assertEquals(2, mh2.calculateNumGamesPlayedAgent(SOVA));
+        mh2.addGame(g3);
         assertEquals(2, mh2.calculateNumGamesPlayedAgent(SOVA));
     }
 }
