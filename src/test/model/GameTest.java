@@ -36,14 +36,24 @@ class GameTest {
         assertEquals(13, g2.getEnemyPoints());
         assertEquals(SAGE, g2.getAgent());
 
+        assertEquals("win", g3.getStatus());
+        assertEquals(13,g3.getTeamPoints());
+        assertEquals(12, g3.getEnemyPoints());
+        assertEquals(JETT, g3.getAgent());
+
+        assertNull(g4.getStatus());
+        assertEquals(0, g4.getTeamPoints());
+        assertEquals(0, g4.getEnemyPoints());
+
         assertEquals(0, g5.getTeamPoints());
         assertEquals(0, g5.getEnemyPoints());
-        assertEquals(null, g5.getStatus());
+        assertNull(g5.getStatus());
     }
 
     @Test
     void testWasGameWon() {
         assertTrue(g1.wasGameWon());
         assertFalse(g2.wasGameWon());
+        assertTrue(g3.wasGameWon());
     }
 }
