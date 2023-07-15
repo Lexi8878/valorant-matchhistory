@@ -12,6 +12,7 @@ public class MatchHistoryTest {
     MatchHistory mh2;
     MatchHistory mh3;
     MatchHistory mh4;
+    MatchHistory mh5;
     Game g;
     Game g2;
     Game g3;
@@ -22,6 +23,7 @@ public class MatchHistoryTest {
         mh2 = new MatchHistory();
         mh3 = new MatchHistory();
         mh4 = new MatchHistory();
+        mh5 = new MatchHistory();
         g = new Game("win", 13, 0, SOVA);
         g2 = new Game("lose", 5, 13, SOVA);
         g3 = new Game("win", 13, 12, JETT);
@@ -60,6 +62,8 @@ public class MatchHistoryTest {
         assertEquals("LOSE 5-13", mh2.getDisplay());
         mh2.addGame(g3);
         assertEquals("WIN 13-12", mh2.getDisplay());
+
+        assertEquals(null, mh3.getDisplay());
     }
 
     @Test
@@ -91,6 +95,8 @@ public class MatchHistoryTest {
 
         mh4.addGame(g2);
         assertEquals(0, mh4.calculateWinRate());
+
+        assertEquals(0, mh5.calculateWinRate());
     }
 
     @Test
@@ -107,5 +113,7 @@ public class MatchHistoryTest {
         assertEquals(0, mh2.calculateNumGamesPlayedAgent(BRIMSTONE));
 
         assertEquals(0, mh3.calculateNumGamesPlayedAgent(JETT));
+
+        assertEquals(0, mh5.calculateNumGamesPlayedAgent(SAGE));
     }
 }

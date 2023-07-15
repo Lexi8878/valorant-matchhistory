@@ -38,6 +38,7 @@ public class MatchHistory {
 
     // EFFECTS: Gets the number of games won in a match history
     public int getNumGamesWon() {
+        numGamesWon = 0;
         for (Game g: games) {
             if (g.wasGameWon()) {
                 numGamesWon++;
@@ -54,8 +55,12 @@ public class MatchHistory {
         numGamesWon = getNumGamesWon();
         double numG = numGames;
         double numGW = numGamesWon;
-        double wr = (numGW / numG) * 100;
-        return wr;
+        if (numG == 0) {
+            return 0;
+        } else {
+            double wr = (numGW / numG) * 100;
+            return wr;
+        }
     }
 
     // REQUIRES: Match history must contain at least one game
