@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import static model.AgentType.*;
+
 public class MatchHistoryTest {
     MatchHistory mh1;
     MatchHistory mh2;
@@ -15,8 +17,8 @@ public class MatchHistoryTest {
     void runBefore() {
         mh1 = new MatchHistory();
         mh2 = new MatchHistory();
-        g = new Game("win", 13, 0);
-        g2 = new Game("lose", 5, 13);
+        g = new Game("win", 13, 0, SOVA);
+        g2 = new Game("lose", 5, 13, SOVA);
     }
 
     @Test
@@ -41,6 +43,10 @@ public class MatchHistoryTest {
     void testGetDisplay() {
         mh1.addGame(g);
         assertEquals("WIN 13-0", mh1.getDisplay());
+
+        mh2.addGame(g);
+        mh2.addGame(g2);
+        assertEquals("LOSE 5-13", mh2.getDisplay());
     }
 
     @Test
@@ -51,5 +57,16 @@ public class MatchHistoryTest {
         mh2.addGame(g);
         mh2.addGame(g2);
         assertEquals(50, mh2.calculateWinRate());
+    }
+
+    @Test
+    void testCalculateNumGamesPlayedAgent() {
+        mh1.addGame(g);
+        assertEquals(1, mh1.calculateNumGamesPlayedAgent(SOVA));
+        assertEquals(0, mh1.calculateNumGamesPlayedAgent(PHOENIX));
+
+        mh2.addGame(g);
+        mh2.addGame(g2);
+        assertEquals(2, mh2.calculateNumGamesPlayedAgent(SOVA));
     }
 }

@@ -1,9 +1,13 @@
 package ui;
 
+import model.AgentType;
 import model.Game;
 import model.MatchHistory;
 
 import java.util.Scanner;
+
+import static model.AgentType.*;
+
 
 // Match history application
 public class MatchHistoryApp {
@@ -43,7 +47,7 @@ public class MatchHistoryApp {
     // MODIFIES: this
     // EFFECTS: Initializes user's games, match history and scanner
     private void init() {
-        game = new Game("win", 13, 0);
+        game = new Game("win", 13, 0, PHOENIX);
         matchHistory = new MatchHistory();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
@@ -63,6 +67,9 @@ public class MatchHistoryApp {
             System.out.println("Calculating...");
             double wr = doCalculate(matchHistory);
             System.out.println("Your win rate is: " + wr + "%");
+        } else if (command.equals("AGENT")) {
+            int numGamesPlayed = doCalculateMostPlayedAgent(matchHistory, PHOENIX);
+            System.out.println(numGamesPlayed);
         } else {
             System.out.println("Selection not valid");
         }
@@ -74,7 +81,8 @@ public class MatchHistoryApp {
         System.out.println("\t1. ADD -> Add match");
         System.out.println("\t2. VIEW -> View match history");
         System.out.println("\t3. CALCULATE -> Calculate win rate");
-        System.out.println("\t4. QUIT -> Quit");
+        System.out.println("\t4. AGENT -> View your most played agent");
+        System.out.println("\t5. QUIT -> Quit");
     }
 
     // MODIFIES: this
@@ -93,6 +101,10 @@ public class MatchHistoryApp {
     // EFFECTS: Gets the user's win rate
     private double doCalculate(MatchHistory mh) {
         return mh.calculateWinRate();
+    }
+
+    private int doCalculateMostPlayedAgent(MatchHistory mh, AgentType agent) {
+        return mh.calculateNumGamesPlayedAgent(agent);
     }
 
 }

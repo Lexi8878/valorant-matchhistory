@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import static model.AgentType.*;
+
 class GameTest {
 
     Game g1;
@@ -14,10 +16,10 @@ class GameTest {
 
     @BeforeEach
     void runBefore() {
-        g1 = new Game("win", 13, 0);
-        g2 = new Game("lose", 1, 13);
-        g3 = new Game("win", 13, 12);
-        g4 = new Game("lose", 3, 6);
+        g1 = new Game("win", 13, 0, SOVA);
+        g2 = new Game("lose", 1, 13, SAGE);
+        g3 = new Game("win", 13, 12, JETT);
+        g4 = new Game("lose", 3, 6, BRIMSTONE);
     }
 
     @Test
