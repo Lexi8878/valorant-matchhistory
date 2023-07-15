@@ -22,3 +22,6 @@ be useful to track the matches I've played and to see my improvement over time.
 
 - As a user, I want to be able to create a new match and add it to a list of previous matches 
 (add it to the match history)
+- As a user, I want to be able to calculate my win rate
+- As a user, I want to be able to view the games in my match history
+- As a user, I want to be able to quit the application if I am done
