@@ -14,6 +14,8 @@ class GameTest {
     Game g3;
     Game g4;
     Game g5;
+    Game g6;
+    Game g7;
 
     @BeforeEach
     void runBefore() {
@@ -22,6 +24,8 @@ class GameTest {
         g3 = new Game("win", 13, 12, JETT);
         g4 = new Game("lose", 3, 6, BRIMSTONE);
         g5 = new Game("tie", 13, 13, PHOENIX);
+        g6 = new Game("lose", 3, 19, PHOENIX);
+        g7 = new Game("sdasd", 13, 10, PHOENIX);
     }
 
     @Test
@@ -48,6 +52,12 @@ class GameTest {
         assertEquals(0, g5.getTeamPoints());
         assertEquals(0, g5.getEnemyPoints());
         assertNull(g5.getStatus());
+
+        assertEquals(0, g6.getTeamPoints());
+        assertEquals(0, g6.getEnemyPoints());
+
+        assertEquals(0, g7.getTeamPoints());
+        assertEquals(0, g7.getEnemyPoints());
     }
 
     @Test

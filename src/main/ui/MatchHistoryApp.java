@@ -11,7 +11,6 @@ import static model.AgentType.*;
 
 // Match history application
 public class MatchHistoryApp {
-    private Game game;
     private MatchHistory matchHistory;
     private String userName;
     private Scanner input;
@@ -27,7 +26,7 @@ public class MatchHistoryApp {
     // EFFECTS: Processes user input
     private void runMatchHistory() {
         boolean conditionTrue = true;
-        String command = null;
+        String command;
 
         init();
 
@@ -46,9 +45,8 @@ public class MatchHistoryApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: Initializes user's games, match history and scanner
+    // EFFECTS: Initializes user's match history and scanner
     private void init() {
-        game = new Game("win", 13, 0, PHOENIX);
         matchHistory = new MatchHistory();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
