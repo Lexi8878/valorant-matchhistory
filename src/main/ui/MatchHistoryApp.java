@@ -17,8 +17,7 @@ public class MatchHistoryApp {
     private AgentType agent;
 
     // EFFECTS: Constructs a match history application with the user's name and runs the application
-    public MatchHistoryApp(String userName) {
-        this.userName = userName;
+    public MatchHistoryApp() {
         runMatchHistory();
     }
 
@@ -29,6 +28,9 @@ public class MatchHistoryApp {
         String command;
 
         init();
+        System.out.println("Welcome");
+        System.out.println("Enter username: ");
+        userName = input.next();
 
         while (conditionTrue) {
             displayMenu();
