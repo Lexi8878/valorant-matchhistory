@@ -21,6 +21,9 @@ public class MatchHistoryApp {
         runMatchHistory();
     }
 
+    // The following code is taken from the TellerApp class in the TellerApp project:
+    // https://github.students.cs.ubc.ca/CPSC210/TellerApp/blob/main/src/main/ca/ubc/cpsc210/bank/ui/TellerApp.java
+
     // MODIFIES: this
     // EFFECTS: Processes user input
     private void runMatchHistory() {
