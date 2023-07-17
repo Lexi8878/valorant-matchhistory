@@ -12,14 +12,10 @@ public class Game {
     //           status must be either "win" or "lose"
     // EFFECTS: Constructs a game with a win or lose status, the final score of game, and the agent played
     public Game(String status, int teamPoints, int enemyPoints, AgentType agent) {
-        if ((teamPoints + enemyPoints <= 25) && (teamPoints == 13 || enemyPoints == 13)) {
-            if ((status.equals("win") || status.equals("lose"))) {
-                this.status = status;
-                this.teamPoints = teamPoints;
-                this.enemyPoints = enemyPoints;
-                this.agent = agent;
-            }
-        }
+        this.status = status;
+        this.teamPoints = teamPoints;
+        this.enemyPoints = enemyPoints;
+        this.agent = agent;
     }
 
     // EFFECTS: Gets the game's status (did user win or lose the game)

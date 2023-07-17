@@ -47,7 +47,6 @@ public class MatchHistory {
         return numGamesWon;
     }
 
-    // REQUIRES: Match history must contain at least one game
     // EFFECTS: Calculates user's average win rate based off of the games that have been
     //          added into match history
     public double calculateWinRate() {
@@ -63,7 +62,6 @@ public class MatchHistory {
         }
     }
 
-    // REQUIRES: Match history must contain at least one game
     // EFFECTS: Calculates how many times the user has played a certain agent
     public int calculateNumGamesPlayedAgent(AgentType agent) {
         int count = 0;

@@ -44,20 +44,6 @@ class GameTest {
         assertEquals(13,g3.getTeamPoints());
         assertEquals(12, g3.getEnemyPoints());
         assertEquals(JETT, g3.getAgent());
-
-        assertNull(g4.getStatus());
-        assertEquals(0, g4.getTeamPoints());
-        assertEquals(0, g4.getEnemyPoints());
-
-        assertEquals(0, g5.getTeamPoints());
-        assertEquals(0, g5.getEnemyPoints());
-        assertNull(g5.getStatus());
-
-        assertEquals(0, g6.getTeamPoints());
-        assertEquals(0, g6.getEnemyPoints());
-
-        assertEquals(0, g7.getTeamPoints());
-        assertEquals(0, g7.getEnemyPoints());
     }
 
     @Test
