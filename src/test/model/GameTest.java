@@ -12,20 +12,12 @@ class GameTest {
     Game g1;
     Game g2;
     Game g3;
-    Game g4;
-    Game g5;
-    Game g6;
-    Game g7;
 
     @BeforeEach
     void runBefore() {
         g1 = new Game("win", 13, 0, SOVA);
         g2 = new Game("lose", 1, 13, SAGE);
         g3 = new Game("win", 13, 12, JETT);
-        g4 = new Game("lose", 3, 6, BRIMSTONE);
-        g5 = new Game("tie", 13, 13, PHOENIX);
-        g6 = new Game("lose", 3, 19, PHOENIX);
-        g7 = new Game("sdasd", 13, 10, PHOENIX);
     }
 
     @Test
