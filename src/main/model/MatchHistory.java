@@ -5,7 +5,6 @@ import java.util.List;
 
 // Represents a user's match history, that stores all the games a user has played
 public class MatchHistory {
-    private int numGamesWon;
     private List<Game> games;
 
     // EFFECTS: Constructs a match history with an empty list of games
@@ -38,7 +37,7 @@ public class MatchHistory {
 
     // EFFECTS: Gets the number of games won in a match history
     public int getNumGamesWon() {
-        numGamesWon = 0;
+        int numGamesWon = 0;
         for (Game g: games) {
             if (g.wasGameWon()) {
                 numGamesWon++;
@@ -50,15 +49,12 @@ public class MatchHistory {
     // EFFECTS: Calculates user's average win rate based off of the games that have been
     //          added into match history
     public double calculateWinRate() {
-        int numGames = getNumGames();
-        numGamesWon = getNumGamesWon();
-        double numG = numGames;
-        double numGW = numGamesWon;
+        double numG = getNumGames();
+        double numGW = getNumGamesWon();
         if (numG == 0) {
             return 0;
         } else {
-            double wr = (numGW / numG) * 100;
-            return wr;
+            return (numGW / numG) * 100;
         }
     }
 
