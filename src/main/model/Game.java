@@ -18,14 +18,15 @@ public class Game {
         this.agent = agent;
     }
 
-    // EFFECTS: Gets the game's status (did user win or lose the game)
-    public String getStatus() {
-        return status;
-    }
-
     // EFFECTS: Returns true if game was won, returns false otherwise
     public boolean wasGameWon() {
         return status.equals("win");
+    }
+
+    // getters
+    // EFFECTS: Gets the game's status (did user win or lose the game)
+    public String getStatus() {
+        return status;
     }
 
     // EFFECTS: Gets user's team score at the end of a game

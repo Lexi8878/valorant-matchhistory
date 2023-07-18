@@ -18,6 +18,7 @@ public class MatchHistory {
         this.games.add(g);
     }
 
+    // getters
     // EFFECTS: Displays the details of the most recent game in the match history
     public String getDisplay() {
         String history = null;
