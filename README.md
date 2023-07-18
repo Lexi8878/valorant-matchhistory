@@ -1,7 +1,7 @@
 # My Personal Project
 
 ## VALORANT Match Recorder:
-A system that displays and records all of your *VALORANT* matches :)
+A system that displays and records all of your *VALORANT* matches
 
 **Features**:
 - Everytime you play a game, you can add it to your match history to keep a record

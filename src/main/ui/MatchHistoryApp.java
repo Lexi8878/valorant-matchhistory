@@ -90,7 +90,7 @@ public class MatchHistoryApp {
     private void viewCommand() {
         String history = doDisplayMatches(matchHistory);
         System.out.println("Here is your match history:");
-        System.out.println(userName + ": " + history);
+        System.out.println(userName + ": " + history + " as " + agent);
     }
 
     private void addCommand() {
