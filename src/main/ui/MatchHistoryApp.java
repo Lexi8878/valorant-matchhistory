@@ -62,33 +62,49 @@ public class MatchHistoryApp {
     @SuppressWarnings("methodlength")
     private void processCommand(String command) {
         if (command.equals("ADD")) {
-            System.out.println("Enter win or lose: ");
-            String gameStatus = input.next().toLowerCase();
-            System.out.println("Enter your team's points: ");
-            int points = input.nextInt();
-            System.out.println("Enter the enemy team's points: ");
-            int enemyPoints = input.nextInt();
-            System.out.print("Enter name of agent:");
-            String played = input.next().toUpperCase();
-            AgentType gameType = getType(played);
-            doAddGame(matchHistory, new Game(gameStatus, points, enemyPoints, gameType));
-            System.out.println("Added a game to match history");
+            addCommand();
         } else if (command.equals("VIEW")) {
-            String history = doDisplayMatches(matchHistory);
-            System.out.println("Here is your match history:");
-            System.out.println(userName + ": " + history);
+            viewCommand();
         } else if (command.equals("WINRATE")) {
-            System.out.println("Calculating...");
-            double wr = doCalculate(matchHistory);
-            System.out.println("Your win rate is: " + wr + "%");
+            winrateCommand();
         } else if (command.equals("AGENT")) {
-            System.out.print("Enter name of agent:");
-            String type = input.next().toUpperCase();
-            int numGamesPlayed = doCalculateNumGamesPlayedAgent(matchHistory, type);
-            System.out.println(type + ": " + numGamesPlayed);
+            agentCommand();
         } else {
             System.out.println("Selection is not valid");
         }
+    }
+
+    private void agentCommand() {
+        System.out.print("Enter name of agent:");
+        String type = input.next().toUpperCase();
+        int numGamesPlayed = doCalculateNumGamesPlayedAgent(matchHistory, type);
+        System.out.println(type + ": " + numGamesPlayed);
+    }
+
+    private void winrateCommand() {
+        System.out.println("Calculating...");
+        double wr = doCalculate(matchHistory);
+        System.out.println("Your win rate is: " + wr + "%");
+    }
+
+    private void viewCommand() {
+        String history = doDisplayMatches(matchHistory);
+        System.out.println("Here is your match history:");
+        System.out.println(userName + ": " + history);
+    }
+
+    private void addCommand() {
+        System.out.println("Enter win or lose: ");
+        String gameStatus = input.next().toLowerCase();
+        System.out.println("Enter your team's points: ");
+        int points = input.nextInt();
+        System.out.println("Enter the enemy team's points: ");
+        int enemyPoints = input.nextInt();
+        System.out.print("Enter name of agent:");
+        String played = input.next().toUpperCase();
+        AgentType gameType = getType(played);
+        doAddGame(matchHistory, new Game(gameStatus, points, enemyPoints, gameType));
+        System.out.println("Added a game to match history");
     }
 
     // EFFECTS: Displays menu to user
