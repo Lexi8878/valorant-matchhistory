@@ -1,8 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a single game/match a user has played. It has a status (win/lose),
 // the amount of team/enemy points at the end of the match, and the name of the character played
-public class Game {
+public class Game implements Writable {
     private AgentType agent;
     private String status;
     private int teamPoints;
@@ -42,5 +45,20 @@ public class Game {
     // EFFECTS: Gets the agent that was played in a game
     public AgentType getAgent() {
         return agent;
+    }
+
+    // EFFECTS: returns string representation of this game
+    public String toString() {
+        return String.valueOf(agent);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("status", status);
+        json.put("teamPoints", teamPoints);
+        json.put("enemyPoints", enemyPoints);
+        json.put("agent", agent);
+        return json;
     }
 }

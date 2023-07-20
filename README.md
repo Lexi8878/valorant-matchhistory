@@ -25,3 +25,5 @@ be useful to track the matches I've played and to see my improvement over time.
 - As a user, I want to be able to calculate my win rate
 - As a user, I want to be able to view the details of my most recent game
 - As a user, I want to be able to calculate how many times I played a certain character/agent recently
+- As a user, I want to have the option to save my current match history to file
+- As a user, I want to have the option to load my current match history from file

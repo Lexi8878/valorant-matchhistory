@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents a user's match history, that stores all the games a user has played
-public class MatchHistory {
+public class MatchHistory implements Writable {
     private List<Game> games;
 
     // EFFECTS: Constructs a match history with an empty list of games
@@ -26,7 +30,8 @@ public class MatchHistory {
             String s = g.getStatus();
             String tp = Integer.toString(g.getTeamPoints());
             String ep = Integer.toString(g.getEnemyPoints());
-            history = s.toUpperCase() + " " + tp + "-" + ep;
+            String a = String.valueOf(g.getAgent());
+            history = s.toUpperCase() + " " + tp + "-" + ep + " as " + a;
         }
         return history;
     }
@@ -69,5 +74,23 @@ public class MatchHistory {
             }
         }
         return count;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("games", gamesToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray gamesToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Game g : games) {
+            jsonArray.put(g.toJson());
+        }
+
+        return jsonArray;
     }
 }
