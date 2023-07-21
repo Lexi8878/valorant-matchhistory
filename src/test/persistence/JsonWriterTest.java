@@ -10,12 +10,14 @@ import static model.AgentType.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+// The following code is taken from the JsonWriterTest class in the JsonSerializationDemo project:
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo/blob/master/src/test/persistence/JsonWriterTest.java
 public class JsonWriterTest extends JsonTest {
 
     @Test
     void testWriterInvalidFile() {
         try {
-            JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
+            JsonWriter writer = new JsonWriter("./data/my\3illegal:fileName.json");
             MatchHistory mh = new MatchHistory();
             writer.open();
             fail("IOException was expected");
