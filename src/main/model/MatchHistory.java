@@ -76,6 +76,7 @@ public class MatchHistory implements Writable {
         return count;
     }
 
+    // EFFECTS: returns games in match history as JSON objects
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -83,7 +84,7 @@ public class MatchHistory implements Writable {
         return json;
     }
 
-    // EFFECTS: returns things in this workroom as a JSON array
+    // EFFECTS: returns games in match history as a JSON array
     private JSONArray gamesToJson() {
         JSONArray jsonArray = new JSONArray();
 

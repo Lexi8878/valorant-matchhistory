@@ -15,8 +15,8 @@ public class JsonReaderTest extends JsonTest {
 
     @Test
     void testReaderNonExistentFile() {
-        JsonReader reader = new JsonReader("./data/nonExistentFile.json");
         try {
+            JsonReader reader = new JsonReader("./data/nonExistentFile.json");
             MatchHistory mh = reader.read();
             fail("IOException expected");
         } catch (IOException e) {
@@ -25,14 +25,14 @@ public class JsonReaderTest extends JsonTest {
     }
 
     @Test
-    void testReaderEmptyMatchHistory() {
+    void testReadMatchHistoryNoGames() {
         try {
             MatchHistory mh = new MatchHistory();
-            JsonWriter writer = new JsonWriter("./data/testReaderEmptyWorkroom.json");
+            JsonReader reader = new JsonReader("./data/testReadMatchHistoryNoGames.json");
+            JsonWriter writer = new JsonWriter("./data/testReadMatchHistoryNoGames.json");
             writer.open();
             writer.write(mh);
             writer.close();
-            JsonReader reader = new JsonReader("./data/testReaderEmptyWorkroom.json");
             mh = reader.read();
             assertEquals(0, mh.getNumGames());
             assertEquals(0, mh.getNumGamesWon());
@@ -42,10 +42,10 @@ public class JsonReaderTest extends JsonTest {
     }
 
     @Test
-    void testReaderGeneralMatchHistory() {
-        JsonReader reader = new JsonReader("./data/testReaderGeneralWorkRoom.json");
-        JsonWriter writer = new JsonWriter("./data/testReaderGeneralWorkRoom.json");
+    void testReadMatchHistoryHasGames() {
         try {
+            JsonReader reader = new JsonReader("./data/testReadMatchHistoryHasGames.json");
+            JsonWriter writer = new JsonWriter("./data/testReadMatchHistoryHasGames.json");
             MatchHistory mh = new MatchHistory();
             Game g = new Game("win", 13, 7, SOVA);
             Game g2 = new Game("lose", 8, 13, PHOENIX);

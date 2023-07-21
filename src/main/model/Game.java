@@ -47,11 +47,7 @@ public class Game implements Writable {
         return agent;
     }
 
-    // EFFECTS: returns string representation of this game
-    public String toString() {
-        return String.valueOf(agent);
-    }
-
+    // EFFECTS: returns game details as JSON objects
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

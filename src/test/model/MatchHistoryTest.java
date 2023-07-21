@@ -57,13 +57,13 @@ public class MatchHistoryTest {
     @Test
     void testGetDisplay() {
         mh1.addGame(g);
-        assertEquals("WIN 13-0", mh1.getDisplay());
+        assertEquals("WIN 13-0 as SOVA", mh1.getDisplay());
 
         mh2.addGame(g);
         mh2.addGame(g2);
-        assertEquals("LOSE 5-13", mh2.getDisplay());
+        assertEquals("LOSE 5-13 as SOVA" , mh2.getDisplay());
         mh2.addGame(g3);
-        assertEquals("WIN 13-12", mh2.getDisplay());
+        assertEquals("WIN 13-12 as JETT", mh2.getDisplay());
 
         assertNull(mh3.getDisplay());
     }
