@@ -3,6 +3,7 @@ package ui;
 import model.AgentType;
 import model.Game;
 import model.MatchHistory;
+
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -69,20 +70,28 @@ public class MatchHistoryApp {
     // MODIFIES: this
     // EFFECTS: Processes user's command
     private void processCommand(String command) {
-        if (command.equals("ADD")) {
-            addCommand();
-        } else if (command.equals("VIEW")) {
-            viewCommand();
-        } else if (command.equals("WINRATE")) {
-            winrateCommand();
-        } else if (command.equals("AGENT")) {
-            agentCommand();
-        } else if (command.equals("SAVE")) {
-            saveMatchHistory();
-        } else if (command.equals("LOAD")) {
-            loadMatchHistory();
-        } else {
-            System.out.println("Selection is not valid");
+        switch (command) {
+            case "ADD":
+                addCommand();
+                break;
+            case "VIEW":
+                viewCommand();
+                break;
+            case "WINRATE":
+                winrateCommand();
+                break;
+            case "AGENT":
+                agentCommand();
+                break;
+            case "SAVE":
+                saveMatchHistory();
+                break;
+            case "LOAD":
+                loadMatchHistory();
+                break;
+            default:
+                System.out.println("Selection is not valid");
+                break;
         }
     }
 
@@ -96,7 +105,7 @@ public class MatchHistoryApp {
     }
 
     // EFFECTS: calculates and displays user's win rate percent
-    private void winrateCommand() {
+    public void winrateCommand() {
         System.out.println("Calculating...");
         double wr = doCalculate(matchHistory);
         System.out.println("Your win rate is: " + wr + "%");
@@ -104,7 +113,7 @@ public class MatchHistoryApp {
 
     // REQUIRES: match history must not be empty
     // EFFECTS: displays user's most recent game in match history
-    private void viewCommand() {
+    public void viewCommand() {
         String history = doDisplayMatches(matchHistory);
         System.out.println("Here is your match history:");
         System.out.println(userName + ": " + history);
@@ -112,7 +121,7 @@ public class MatchHistoryApp {
 
     // MODIFIES: this
     // EFFECTS: takes user's input for game details and adds that game into match history
-    private void addCommand() {
+    public void addCommand() {
         System.out.println("Enter win or lose: ");
         String gameStatus = input.next().toLowerCase();
         System.out.println("Enter your team's points: ");
@@ -157,16 +166,22 @@ public class MatchHistoryApp {
     }
 
     private AgentType getType(String type) {
-        if (type.equals("SOVA")) {
-            this.agent = SOVA;
-        } else if (type.equals("SAGE")) {
-            this.agent = SAGE;
-        } else if (type.equals("PHOENIX")) {
-            this.agent = PHOENIX;
-        } else if (type.equals("BRIMSTONE")) {
-            this.agent = BRIMSTONE;
-        } else {
-            this.agent = JETT;
+        switch (type) {
+            case "SOVA":
+                this.agent = SOVA;
+                break;
+            case "SAGE":
+                this.agent = SAGE;
+                break;
+            case "PHOENIX":
+                this.agent = PHOENIX;
+                break;
+            case "BRIMSTONE":
+                this.agent = BRIMSTONE;
+                break;
+            default:
+                this.agent = JETT;
+                break;
         }
         return agent;
     }
@@ -177,7 +192,7 @@ public class MatchHistoryApp {
     }
 
     // EFFECTS: saves match history to file
-    private void saveMatchHistory() {
+    public void saveMatchHistory() {
         try {
             jsonWriter.open();
             jsonWriter.write(matchHistory);
@@ -190,13 +205,18 @@ public class MatchHistoryApp {
 
     // MODIFIES: this
     // EFFECTS: loads match history from file
-    private void loadMatchHistory() {
+    public void loadMatchHistory() {
         try {
             matchHistory = jsonReader.read();
             System.out.println("Loaded " + userName + "'s match history" + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
+    }
+
+    // EFFECTS: returns current match history
+    public MatchHistory getMatchHistory() {
+        return matchHistory;
     }
 }
 

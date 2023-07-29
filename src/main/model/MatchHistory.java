@@ -94,4 +94,25 @@ public class MatchHistory implements Writable {
 
         return jsonArray;
     }
+
+    //EFFECTS: returns a list of matches in this currently running
+    public List<String> getMatchesRunning() {
+        List<String> matchesRunning = new ArrayList<>();
+        for (Game g : games) {
+            matchesRunning.add(getDisplay());
+        }
+        return matchesRunning;
+    }
+
+    //EFFECTS: returns a String list of matches running
+    public String matchRunningStatus() {
+        List<String> running = getMatchesRunning();
+        StringBuilder status = new StringBuilder();
+
+        for (String s : running) {
+            status.append("\n");
+        }
+        return status.toString();
+    }
+
 }
