@@ -37,12 +37,12 @@ public class SaveLoadTab extends Tab {
         buttonRow.setSize(WIDTH, HEIGHT / 6);
 
         b1.addActionListener(e -> {
-            getController().getMatchHistoryApp().saveMatchHistory();
+            getController().saveMatchHistory();
             greeting.setText("Saving match history!");
         });
 
         b2.addActionListener(e -> {
-            getController().getMatchHistoryApp().loadMatchHistory();
+            getController().loadMatchHistory();
             greeting.setText("Loading match history!");
         });
 

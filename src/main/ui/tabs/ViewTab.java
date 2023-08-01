@@ -49,7 +49,7 @@ public class ViewTab extends Tab {
                 String buttonPressed = e.getActionCommand();
                 if (buttonPressed.equals(ButtonNames.GENERATE_MATCH_HISTORY.getValue())) {
                     viewMessage.setText(VIEW_GEN_MESSAGE);
-                    viewText.setText(getController().getMatchHistoryApp().getMatchHistory().matchRunningStatus());
+                    viewText.setText(getController().getMatchHistory().matchRunningStatus());
                     viewPane.setViewportView(viewText);
                 }
             }

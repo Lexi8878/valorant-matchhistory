@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class HomeTab extends Tab {
-    private static final String INIT_GREETING = "Welcome";
+    private static final String INIT_GREETING = "Welcome ";
     private JLabel greeting;
 
     //EFFECTS: constructs a home tab for console with buttons and a greeting
@@ -25,7 +25,7 @@ public class HomeTab extends Tab {
 
     //EFFECTS: creates greeting at top of console
     private void placeGreeting() {
-        greeting = new JLabel(INIT_GREETING, JLabel.CENTER);
+        greeting = new JLabel(INIT_GREETING + getController().getUserName(), JLabel.CENTER);
         greeting.setSize(WIDTH, HEIGHT / 3);
         this.add(greeting);
     }
@@ -40,12 +40,12 @@ public class HomeTab extends Tab {
         buttonRow.setSize(WIDTH, HEIGHT / 6);
 
         b1.addActionListener(e -> {
-            getController().getMatchHistoryApp().addCommand();
+            getController().addCommand();
             greeting.setText("Adding a match!");
         });
 
         b2.addActionListener(e -> {
-            getController().getMatchHistoryApp().winrateCommand();
+            getController().winrateCommand();
             greeting.setText("Calculating win rate!");
         });
 

@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Tab extends JPanel {
-    private final MatchHistoryUI controller;
+    private MatchHistoryUI controller;
 
     //REQUIRES: MatchHistoryUI controller that holds this tab
     public Tab(MatchHistoryUI controller) {
