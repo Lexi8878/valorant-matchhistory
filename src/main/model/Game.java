@@ -8,13 +8,13 @@ import persistence.Writable;
 public class Game implements Writable {
     private AgentType agent;
     private String status;
-    private int teamPoints;
-    private int enemyPoints;
+    private String teamPoints;
+    private String enemyPoints;
 
     // REQUIRES: Sum of team and enemy points <= 25 (13 + 12) and the winning team must score 13
     //           status must be either "win" or "lose"
     // EFFECTS: Constructs a game with a win or lose status, the final score of game, and the agent played
-    public Game(String status, int teamPoints, int enemyPoints, AgentType agent) {
+    public Game(String status, String teamPoints, String enemyPoints, AgentType agent) {
         this.status = status;
         this.teamPoints = teamPoints;
         this.enemyPoints = enemyPoints;
@@ -33,12 +33,12 @@ public class Game implements Writable {
     }
 
     // EFFECTS: Gets user's team score at the end of a game
-    public int getTeamPoints() {
+    public String getTeamPoints() {
         return teamPoints;
     }
 
     // EFFECTS: Gets the enemy team's score at the end of a game
-    public int getEnemyPoints() {
+    public String getEnemyPoints() {
         return enemyPoints;
     }
 

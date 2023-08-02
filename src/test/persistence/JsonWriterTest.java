@@ -50,8 +50,8 @@ public class JsonWriterTest extends JsonTest {
             JsonWriter writer = new JsonWriter("./data/testWriteMatchHistoryHasGames.json");
             JsonReader reader = new JsonReader("./data/testWriteMatchHistoryHasGames.json");
             MatchHistory mh = new MatchHistory();
-            Game g1 = new Game("win", 13, 9, SAGE);
-            Game g2 = new Game("lose", 4, 13, BRIMSTONE);
+            Game g1 = new Game("win", "13", "9", SAGE);
+            Game g2 = new Game("lose", "4", "13", BRIMSTONE);
             mh.addGame(g1);
             mh.addGame(g2);
             writer.open();
@@ -61,8 +61,8 @@ public class JsonWriterTest extends JsonTest {
 
             assertEquals(2, mh.getNumGames());
             assertEquals(1, mh.getNumGamesWon());
-            checkGame("win", 13, 9, SAGE, g1);
-            checkGame("lose", 4, 13, BRIMSTONE, g2);
+            checkGame("win", "13", "9", SAGE, g1);
+            checkGame("lose", "4", "13", BRIMSTONE, g2);
 
         } catch (IOException e) {
             fail("Couldn't write to file");

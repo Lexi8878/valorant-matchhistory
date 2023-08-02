@@ -1,5 +1,6 @@
 package ui.tabs;
 
+import model.AgentType;
 import ui.ButtonNames;
 import ui.MatchHistoryUI;
 
@@ -12,44 +13,62 @@ public class HomeTab extends Tab {
     private static final String INIT_GREETING = "Welcome ";
     private JLabel greeting;
 
+
     //EFFECTS: constructs a home tab for console with buttons and a greeting
     public HomeTab(MatchHistoryUI controller) {
         super(controller);
 
-        setLayout(new GridLayout(3, 1));
+        setLayout(new GridLayout(4, 1));
 
         placeGreeting();
-        placeHomeButtons();
+        placeAddButton();
+        placeWinrateButton();
         placeStatusButton();
     }
 
     //EFFECTS: creates greeting at top of console
     private void placeGreeting() {
-        greeting = new JLabel(INIT_GREETING + getController().getUserName(), JLabel.CENTER);
+        greeting = new JLabel(INIT_GREETING, JLabel.CENTER);
         greeting.setSize(WIDTH, HEIGHT / 3);
         this.add(greeting);
     }
 
-    //EFFECTS: creates Add and View buttons that change greeting message when clicked
-    private void placeHomeButtons() {
-        JButton b1 = new JButton(ButtonNames.ADD.getValue());
-        JButton b2 = new JButton(ButtonNames.WINRATE.getValue());
+    //EFFECTS: constructs a status button that switches to the view match history tab on the console
+    private void placeAddButton() {
+        JPanel addBlock = new JPanel();
+        JButton addButton = new JButton(ButtonNames.GO_TO_ADD.getValue());
+        addBlock.add(formatButtonRow(addButton));
 
-        JPanel buttonRow = formatButtonRow(b1);
-        buttonRow.add(b2);
-        buttonRow.setSize(WIDTH, HEIGHT / 6);
-
-        b1.addActionListener(e -> {
-            getController().addCommand();
-            greeting.setText("Adding a match!");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String buttonPressed = e.getActionCommand();
+                if (buttonPressed.equals(ButtonNames.GO_TO_ADD.getValue())) {
+                    getController().getTabbedPane().setSelectedIndex(MatchHistoryUI.ADD_TAB_INDEX);
+                }
+            }
         });
 
-        b2.addActionListener(e -> {
-            getController().winrateCommand();
-            greeting.setText("Calculating win rate!");
+        this.add(addBlock);
+    }
+
+    //EFFECTS: constructs a status button that switches to the view match history tab on the console
+    private void placeWinrateButton() {
+        JPanel winrateBlock = new JPanel();
+        JButton winrateButton = new JButton(ButtonNames.GO_TO_WINRATE.getValue());
+        winrateBlock.add(formatButtonRow(winrateButton));
+
+        winrateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String buttonPressed = e.getActionCommand();
+                if (buttonPressed.equals(ButtonNames.GO_TO_WINRATE.getValue())) {
+                    getController().getTabbedPane().setSelectedIndex(MatchHistoryUI.WINRATE_TAB_INDEX);
+                }
+            }
         });
 
-        this.add(buttonRow);
+        this.add(winrateBlock);
     }
 
     //EFFECTS: constructs a status button that switches to the view match history tab on the console

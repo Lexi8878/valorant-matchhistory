@@ -63,8 +63,8 @@ public class JsonReader {
     // EFFECTS: parses match from JSON object and adds it to match history
     private void addGame(MatchHistory mh, JSONObject jsonObject) {
         String status = jsonObject.getString("status");
-        int teamPoints = Integer.parseInt(String.valueOf(jsonObject.getInt("teamPoints")));
-        int enemyPoints = Integer.parseInt(String.valueOf(jsonObject.getInt("enemyPoints")));
+        String teamPoints = jsonObject.getString("teamPoints");
+        String enemyPoints = jsonObject.getString("enemyPoints");
         AgentType agent = AgentType.valueOf(jsonObject.getString("agent"));
         Game g = new Game(status, teamPoints, enemyPoints, agent);
         mh.addGame(g);

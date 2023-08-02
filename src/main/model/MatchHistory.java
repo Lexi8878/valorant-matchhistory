@@ -24,16 +24,18 @@ public class MatchHistory implements Writable {
 
     // getters
     // EFFECTS: Displays the details of the most recent game in the match history
-    public String getDisplay() {
+    public List<String> getDisplay() {
         String history = null;
+        List<String> historyList = new ArrayList<>();
         for (Game g: games) {
             String s = g.getStatus();
-            String tp = Integer.toString(g.getTeamPoints());
-            String ep = Integer.toString(g.getEnemyPoints());
+            String tp = g.getTeamPoints();
+            String ep = g.getEnemyPoints();
             String a = String.valueOf(g.getAgent());
             history = s.toUpperCase() + " " + tp + "-" + ep + " as " + a;
+            historyList.add(history);
         }
-        return history;
+        return historyList;
     }
 
     // EFFECTS: Gets the number of games played in a match history
@@ -97,10 +99,7 @@ public class MatchHistory implements Writable {
 
     //EFFECTS: returns a list of matches in this currently running
     public List<String> getMatchesRunning() {
-        List<String> matchesRunning = new ArrayList<>();
-        for (Game g : games) {
-            matchesRunning.add(getDisplay());
-        }
+        List<String> matchesRunning = getDisplay();
         return matchesRunning;
     }
 
@@ -110,7 +109,7 @@ public class MatchHistory implements Writable {
         StringBuilder status = new StringBuilder();
 
         for (String s : running) {
-            status.append("\n");
+            status.append("\n").append(s);
         }
         return status.toString();
     }

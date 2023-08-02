@@ -49,8 +49,8 @@ public class JsonReaderTest extends JsonTest {
             JsonReader reader = new JsonReader("./data/testReadMatchHistoryHasGames.json");
             JsonWriter writer = new JsonWriter("./data/testReadMatchHistoryHasGames.json");
             MatchHistory mh = new MatchHistory();
-            Game g = new Game("win", 13, 7, SOVA);
-            Game g2 = new Game("lose", 8, 13, PHOENIX);
+            Game g = new Game("win", "13", "7", SOVA);
+            Game g2 = new Game("lose", "8", "13", PHOENIX);
             assertEquals(0, mh.getNumGames());
             mh.addGame(g);
             mh.addGame(g2);
@@ -58,8 +58,8 @@ public class JsonReaderTest extends JsonTest {
             writer.write(mh);
             writer.close();
             mh = reader.read();
-            checkGame("win", 13, 7, SOVA, g);
-            checkGame("lose", 8, 13, PHOENIX, g2);
+            checkGame("win", "13", "7", SOVA, g);
+            checkGame("lose", "8", "13", PHOENIX, g2);
             assertEquals(2, mh.getNumGames());
         } catch (IOException e) {
             fail("Couldn't read from file");

@@ -3,6 +3,9 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import static model.AgentType.*;
@@ -25,10 +28,10 @@ public class MatchHistoryTest {
         mh3 = new MatchHistory();
         mh4 = new MatchHistory();
         mh5 = new MatchHistory();
-        g = new Game("win", 13, 0, SOVA);
-        g2 = new Game("lose", 5, 13, SOVA);
-        g3 = new Game("win", 13, 12, JETT);
-        g4 = new Game("lose", 9, 13, SOVA);
+        g = new Game("win", "13", "0", SOVA);
+        g2 = new Game("lose", "5", "13", SOVA);
+        g3 = new Game("win", "13", "12", JETT);
+        g4 = new Game("lose", "9", "13", SOVA);
     }
 
     @Test
@@ -57,15 +60,22 @@ public class MatchHistoryTest {
     @Test
     void testGetDisplay() {
         mh1.addGame(g);
-        assertEquals("WIN 13-0 as SOVA", mh1.getDisplay());
+        List<String> testHistoryList = mh1.getDisplay();
+        assertEquals("WIN 13-0 as SOVA", testHistoryList.get(0));
+        assertEquals(1, testHistoryList.size());
 
         mh2.addGame(g);
         mh2.addGame(g2);
-        assertEquals("LOSE 5-13 as SOVA" , mh2.getDisplay());
+        List<String> testHistoryList2 = mh2.getDisplay();
+        assertEquals("WIN 13-0 as SOVA", testHistoryList2.get(0));
+        assertEquals("LOSE 5-13 as SOVA", testHistoryList2.get(1));
         mh2.addGame(g3);
-        assertEquals("WIN 13-12 as JETT", mh2.getDisplay());
+        List<String> testHistoryList3 = mh2.getDisplay();
+        assertEquals("WIN 13-12 as JETT", testHistoryList3.get(2));
+        assertEquals(3, testHistoryList3.size());
 
-        assertNull(mh3.getDisplay());
+        List<String> testHistoryList4 = mh3.getDisplay();
+        assertEquals(0, testHistoryList4.size());
     }
 
     @Test

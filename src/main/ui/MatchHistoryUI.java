@@ -5,11 +5,11 @@ import model.Game;
 import model.MatchHistory;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import ui.tabs.HomeTab;
-import ui.tabs.SaveLoadTab;
-import ui.tabs.ViewTab;
+import ui.tabs.*;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -18,10 +18,13 @@ import static model.AgentType.*;
 
 public class MatchHistoryUI extends JFrame {
     public static final int HOME_TAB_INDEX = 0;
-    public static final int VIEW_TAB_INDEX = 1;
-    public static final int SAVE_LOAD_TAB_INDEX = 2;
+    public static final int ADD_TAB_INDEX = 1;
+    public static final int WINRATE_TAB_INDEX = 2;
+    public static final int VIEW_TAB_INDEX = 3;
+    public static final int SAVE_LOAD_TAB_INDEX = 4;
 
-    public static final int WIDTH = 600;
+
+    public static final int WIDTH = 400;
     public static final int HEIGHT = 400;
     private JTabbedPane sidebar;
     private MatchHistory matchHistory;
@@ -43,59 +46,36 @@ public class MatchHistoryUI extends JFrame {
     //MODIFIES: this
     //EFFECTS: creates MatchHistoryUI, loads SmartHome appliances, displays sidebar and tabs
     private MatchHistoryUI() throws FileNotFoundException {
-        super("MatchHistory Console");
-        setSize(WIDTH, HEIGHT);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        JFrame frame = new JFrame();
+        frame.setTitle("MatchHistory Console");
+        frame.setSize(WIDTH, HEIGHT);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-
         matchHistory = new MatchHistory();
-        input = new Scanner(System.in);
-        input.useDelimiter("\n");
-
-        System.out.println("Welcome");
-        System.out.println("Enter username: ");
-        userName = input.next();
 
         sidebar = new JTabbedPane();
         sidebar.setTabPlacement(JTabbedPane.LEFT);
         loadTabs();
-        add(sidebar);
-
-        setVisible(true);
-
-
-        //try {
-            //matchHistoryApp = new MatchHistoryApp();
-        //} catch (FileNotFoundException e) {
-            //System.out.println("Unable to run application: file not found");
-        //}
+        frame.add(sidebar);
+        frame.setVisible(true);
     }
 
-    //EFFECTS: returns Match History object controlled by this UI
+    // EFFECTS: returns Match History object controlled by this UI
     public MatchHistory getMatchHistory() {
         return matchHistory;
     }
 
-    //EFFECTS: returns username
+    // EFFECTS: returns username
     public String getUserName() {
         return userName;
     }
 
     // MODIFIES: this
     // EFFECTS: takes user's input for game details and adds that game into match history
-    public void addCommand() {
-        System.out.println("Enter win or lose: ");
-        String gameStatus = input.next().toLowerCase();
-        System.out.println("Enter your team's points: ");
-        int points = input.nextInt();
-        System.out.println("Enter the enemy team's points: ");
-        int enemyPoints = input.nextInt();
-        System.out.print("Enter name of agent:");
-        String played = input.next().toUpperCase();
-        AgentType gameType = getType(played);
+    public void addCommand(String gameStatus, String points, String enemyPoints, AgentType gameType) {
         doAddGame(matchHistory, new Game(gameStatus, points, enemyPoints, gameType));
-        System.out.println("Added a game to match history");
     }
 
     // REQUIRES: match history must not be empty
@@ -108,29 +88,15 @@ public class MatchHistoryUI extends JFrame {
     }
 
     // EFFECTS: calculates and displays user's win rate percent
-    public void winrateCommand() {
+    public String winrateCommand() {
         System.out.println("Calculating...");
         double wr = doCalculate(matchHistory);
-        System.out.println("Your win rate is: " + wr + "%");
-    }
-
-    // REQUIRES: match history must not be empty
-    // EFFECTS: displays user's most recent game in match history
-    public void viewCommand() {
-        String history = doDisplayMatches(matchHistory);
-        System.out.println("Here is your match history:");
-        System.out.println(userName + ": " + history);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: Displays the user's match history
-    private String doDisplayMatches(MatchHistory mh) {
-        return mh.getDisplay();
+        return "Your win rate is: " + wr + "%";
     }
 
     // MODIFIES: this
     // EFFECTS: Gets the user's win rate
-    private double doCalculate(MatchHistory mh) {
+    public double doCalculate(MatchHistory mh) {
         return mh.calculateWinRate();
     }
 
@@ -168,7 +134,7 @@ public class MatchHistoryUI extends JFrame {
         }
     }
 
-    private AgentType getType(String type) {
+    public AgentType getType(String type) {
         switch (type) {
             case "SOVA":
                 this.agent = SOVA;
@@ -193,11 +159,17 @@ public class MatchHistoryUI extends JFrame {
     //EFFECTS: adds home tab, view tab, save/load tab to this UI
     private void loadTabs() {
         JPanel homeTab = new HomeTab(this);
+        JPanel addTab = new AddTab(this);
+        JPanel winrateTab = new WinrateTab(this);
         JPanel viewTab = new ViewTab(this);
         JPanel quitTab = new SaveLoadTab(this);
 
         sidebar.add(homeTab, HOME_TAB_INDEX);
         sidebar.setTitleAt(HOME_TAB_INDEX, "Home");
+        sidebar.add(addTab, ADD_TAB_INDEX);
+        sidebar.setTitleAt(ADD_TAB_INDEX, "Add");
+        sidebar.add(winrateTab, WINRATE_TAB_INDEX);
+        sidebar.setTitleAt(WINRATE_TAB_INDEX, "Winrate");
         sidebar.add(viewTab, VIEW_TAB_INDEX);
         sidebar.setTitleAt(VIEW_TAB_INDEX, "View");
         sidebar.add(quitTab, SAVE_LOAD_TAB_INDEX);

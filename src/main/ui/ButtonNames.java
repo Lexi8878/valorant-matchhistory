@@ -1,9 +1,11 @@
 package ui;
 
 public enum ButtonNames {
-    ADD("Add match"),
+    ADD("Add"),
     WINRATE("Calculate win rate"),
+    GO_TO_ADD("Add a match"),
     GO_TO_MATCH_HISTORY("Current Match History"),
+    GO_TO_WINRATE("Calculate win rate"),
     GENERATE_MATCH_HISTORY("Match History Status"),
     SAVE("Save match history"),
     LOAD("Load match history");
