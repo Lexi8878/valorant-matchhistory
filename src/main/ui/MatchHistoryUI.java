@@ -8,29 +8,23 @@ import persistence.JsonWriter;
 import ui.tabs.*;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
+import java.util.List;
 
-import static model.AgentType.*;
-
+// User Interface for match history application
 public class MatchHistoryUI extends JFrame {
     public static final int HOME_TAB_INDEX = 0;
     public static final int ADD_TAB_INDEX = 1;
-    public static final int WINRATE_TAB_INDEX = 2;
+    public static final int WINRATE_AGENT_TAB_INDEX = 2;
     public static final int VIEW_TAB_INDEX = 3;
     public static final int SAVE_LOAD_TAB_INDEX = 4;
 
 
-    public static final int WIDTH = 400;
+    public static final int WIDTH = 600;
     public static final int HEIGHT = 400;
     private JTabbedPane sidebar;
     private MatchHistory matchHistory;
-    private Scanner input;
-    private String userName;
-    private AgentType agent;
     private static final String JSON_STORE = "./data/matchhistory.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
@@ -44,7 +38,7 @@ public class MatchHistoryUI extends JFrame {
     }
 
     //MODIFIES: this
-    //EFFECTS: creates MatchHistoryUI, loads SmartHome appliances, displays sidebar and tabs
+    //EFFECTS: creates MatchHistoryUI and read/writers, displays sidebar and tabs
     private MatchHistoryUI() throws FileNotFoundException {
         JFrame frame = new JFrame();
         frame.setTitle("MatchHistory Console");
@@ -67,11 +61,6 @@ public class MatchHistoryUI extends JFrame {
         return matchHistory;
     }
 
-    // EFFECTS: returns username
-    public String getUserName() {
-        return userName;
-    }
-
     // MODIFIES: this
     // EFFECTS: takes user's input for game details and adds that game into match history
     public void addCommand(String gameStatus, String points, String enemyPoints, AgentType gameType) {
@@ -79,22 +68,17 @@ public class MatchHistoryUI extends JFrame {
     }
 
     // REQUIRES: match history must not be empty
-    // EFFECTS: takes user's input and displays how many games the specified agent was played
-    private void agentCommand() {
-        System.out.print("Enter name of agent:");
-        String type = input.next().toUpperCase();
-        int numGamesPlayed = doCalculateNumGamesPlayedAgent(matchHistory, type);
-        System.out.println(type + ": " + numGamesPlayed);
+    // EFFECTS: takes user's input and displays most played agent
+    public String agentCommand() {
+        return doCalculateNumGamesPlayedAgent(matchHistory);
     }
 
     // EFFECTS: calculates and displays user's win rate percent
     public String winrateCommand() {
-        System.out.println("Calculating...");
         double wr = doCalculate(matchHistory);
         return "Your win rate is: " + wr + "%";
     }
 
-    // MODIFIES: this
     // EFFECTS: Gets the user's win rate
     public double doCalculate(MatchHistory mh) {
         return mh.calculateWinRate();
@@ -106,9 +90,17 @@ public class MatchHistoryUI extends JFrame {
         mh.addGame(g);
     }
 
-    private int doCalculateNumGamesPlayedAgent(MatchHistory mh, String type) {
-        getType(type);
-        return mh.calculateNumGamesPlayedAgent(agent);
+    private String doCalculateNumGamesPlayedAgent(MatchHistory mh) {
+        List<List<AgentType>> myCollection = mh.calculateNumGamesPlayedAgent();
+        int largest = 0;
+        String type = null;
+        for (List<AgentType> lists: myCollection) {
+            if (lists.size() > largest) {
+                largest = lists.size();
+                type = String.valueOf(lists.get(0));
+            }
+        }
+        return "Most played agent: " + type + " with " + largest + " game(s).";
     }
 
     // EFFECTS: saves match history to file
@@ -117,7 +109,7 @@ public class MatchHistoryUI extends JFrame {
             jsonWriter.open();
             jsonWriter.write(matchHistory);
             jsonWriter.close();
-            System.out.println("Saved " + userName + "'s match history" + " to " + JSON_STORE);
+            System.out.println("Saved match history" + " to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
@@ -128,31 +120,10 @@ public class MatchHistoryUI extends JFrame {
     public void loadMatchHistory() {
         try {
             matchHistory = jsonReader.read();
-            System.out.println("Loaded " + userName + "'s match history" + " from " + JSON_STORE);
+            System.out.println("Loaded match history" + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
-    }
-
-    public AgentType getType(String type) {
-        switch (type) {
-            case "SOVA":
-                this.agent = SOVA;
-                break;
-            case "SAGE":
-                this.agent = SAGE;
-                break;
-            case "PHOENIX":
-                this.agent = PHOENIX;
-                break;
-            case "BRIMSTONE":
-                this.agent = BRIMSTONE;
-                break;
-            default:
-                this.agent = JETT;
-                break;
-        }
-        return agent;
     }
 
     //MODIFIES: this
@@ -160,7 +131,7 @@ public class MatchHistoryUI extends JFrame {
     private void loadTabs() {
         JPanel homeTab = new HomeTab(this);
         JPanel addTab = new AddTab(this);
-        JPanel winrateTab = new WinrateTab(this);
+        JPanel winrateAgentTab = new WinrateAgentTab(this);
         JPanel viewTab = new ViewTab(this);
         JPanel quitTab = new SaveLoadTab(this);
 
@@ -168,8 +139,8 @@ public class MatchHistoryUI extends JFrame {
         sidebar.setTitleAt(HOME_TAB_INDEX, "Home");
         sidebar.add(addTab, ADD_TAB_INDEX);
         sidebar.setTitleAt(ADD_TAB_INDEX, "Add");
-        sidebar.add(winrateTab, WINRATE_TAB_INDEX);
-        sidebar.setTitleAt(WINRATE_TAB_INDEX, "Winrate");
+        sidebar.add(winrateAgentTab, WINRATE_AGENT_TAB_INDEX);
+        sidebar.setTitleAt(WINRATE_AGENT_TAB_INDEX, "Winrate/Agent");
         sidebar.add(viewTab, VIEW_TAB_INDEX);
         sidebar.setTitleAt(VIEW_TAB_INDEX, "View");
         sidebar.add(quitTab, SAVE_LOAD_TAB_INDEX);

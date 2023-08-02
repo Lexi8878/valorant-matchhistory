@@ -1,6 +1,5 @@
 package ui.tabs;
 
-import model.AgentType;
 import ui.ButtonNames;
 import ui.MatchHistoryUI;
 
@@ -9,11 +8,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// front page of match history application with buttons that sends user to different tabs
 public class HomeTab extends Tab {
-    private static final String INIT_GREETING = "Welcome ";
+    private static final String INIT_GREETING = "Welcome";
     private JLabel greeting;
 
-
+    //REQUIRES: MatchHistoryUI controller that holds this tab
     //EFFECTS: constructs a home tab for console with buttons and a greeting
     public HomeTab(MatchHistoryUI controller) {
         super(controller);
@@ -26,6 +26,7 @@ public class HomeTab extends Tab {
         placeStatusButton();
     }
 
+    // MODIFIES: this
     //EFFECTS: creates greeting at top of console
     private void placeGreeting() {
         greeting = new JLabel(INIT_GREETING, JLabel.CENTER);
@@ -33,6 +34,7 @@ public class HomeTab extends Tab {
         this.add(greeting);
     }
 
+    // MODIFIES: this
     //EFFECTS: constructs a status button that switches to the view match history tab on the console
     private void placeAddButton() {
         JPanel addBlock = new JPanel();
@@ -52,6 +54,7 @@ public class HomeTab extends Tab {
         this.add(addBlock);
     }
 
+    // MODIFIES: this
     //EFFECTS: constructs a status button that switches to the view match history tab on the console
     private void placeWinrateButton() {
         JPanel winrateBlock = new JPanel();
@@ -63,7 +66,7 @@ public class HomeTab extends Tab {
             public void actionPerformed(ActionEvent e) {
                 String buttonPressed = e.getActionCommand();
                 if (buttonPressed.equals(ButtonNames.GO_TO_WINRATE.getValue())) {
-                    getController().getTabbedPane().setSelectedIndex(MatchHistoryUI.WINRATE_TAB_INDEX);
+                    getController().getTabbedPane().setSelectedIndex(MatchHistoryUI.WINRATE_AGENT_TAB_INDEX);
                 }
             }
         });
@@ -71,6 +74,7 @@ public class HomeTab extends Tab {
         this.add(winrateBlock);
     }
 
+    // MODIFIES: this
     //EFFECTS: constructs a status button that switches to the view match history tab on the console
     private void placeStatusButton() {
         JPanel statusBlock = new JPanel();

@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// tab where user can view all the matches in their match history
 public class ViewTab extends Tab {
     private static final String VIEW_GEN_MESSAGE = "Current Match History";
 
@@ -16,7 +17,7 @@ public class ViewTab extends Tab {
     private JLabel viewMessage;
 
     //REQUIRES: MatchHistoryUI controller that holds this tab
-    //EFFECTS: creates report tab with buttons and application status functionality
+    //EFFECTS: creates view tab with buttons and window that shows games in match history
     public ViewTab(MatchHistoryUI controller) {
         super(controller);
 
@@ -37,7 +38,7 @@ public class ViewTab extends Tab {
     }
 
     //MODIFIES: this
-    //EFFECTS: adds a generate report button that prints app status when clicked
+    //EFFECTS: adds a generate match history button that prints all games in match history when clicked
     private void placeViewButton() {
         JButton b1 = new JButton(ButtonNames.GENERATE_MATCH_HISTORY.getValue());
         JPanel buttonRow = formatButtonRow(b1);

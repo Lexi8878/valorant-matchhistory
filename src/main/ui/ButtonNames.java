@@ -1,8 +1,10 @@
 package ui;
 
+// enum of button names
 public enum ButtonNames {
     ADD("Add"),
     WINRATE("Calculate win rate"),
+    AGENT("See most played agent"),
     GO_TO_ADD("Add a match"),
     GO_TO_MATCH_HISTORY("Current Match History"),
     GO_TO_WINRATE("Calculate win rate"),

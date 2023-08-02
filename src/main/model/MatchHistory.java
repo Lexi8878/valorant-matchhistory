@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 // Represents a user's match history, that stores all the games a user has played
@@ -67,15 +68,26 @@ public class MatchHistory implements Writable {
     }
 
     // EFFECTS: Calculates how many times the user has played a certain agent
-    public int calculateNumGamesPlayedAgent(AgentType agent) {
-        int count = 0;
-
+    public List<List<AgentType>> calculateNumGamesPlayedAgent() {
+        List<List<AgentType>> typeListCollection = new ArrayList<>();
+        AgentType type = null;
         for (Game g: games) {
-            if (g.getAgent() == agent) {
-                count++;
+            if (g.getAgent() != type) {
+                List<AgentType> typeList = new ArrayList<>();
+                type = g.getAgent();
+                typeList.add(type);
+                typeListCollection.add(typeList);
+            } else {
+                for (List<AgentType> lists: typeListCollection) {
+                    for (AgentType at: lists) {
+                        if (at == type) {
+                            lists.add(type);
+                        }
+                    }
+                }
             }
         }
-        return count;
+        return typeListCollection;
     }
 
     // EFFECTS: returns games in match history as JSON objects
@@ -97,13 +109,13 @@ public class MatchHistory implements Writable {
         return jsonArray;
     }
 
-    //EFFECTS: returns a list of matches in this currently running
+    //EFFECTS: returns a list of matches in this currently in match history
     public List<String> getMatchesRunning() {
         List<String> matchesRunning = getDisplay();
         return matchesRunning;
     }
 
-    //EFFECTS: returns a String list of matches running
+    //EFFECTS: returns a String list of matches currently in match history
     public String matchRunningStatus() {
         List<String> running = getMatchesRunning();
         StringBuilder status = new StringBuilder();

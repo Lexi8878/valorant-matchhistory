@@ -5,6 +5,7 @@ import ui.MatchHistoryUI;
 import javax.swing.*;
 import java.awt.*;
 
+// Basic tab for match history console
 public class Tab extends JPanel {
     private MatchHistoryUI controller;
 
@@ -22,7 +23,7 @@ public class Tab extends JPanel {
         return p;
     }
 
-    //EFFECTS: returns the SmartHomeUI controller for this tab
+    //EFFECTS: returns the MatchHistoryUI controller for this tab
     public MatchHistoryUI getController() {
         return controller;
     }

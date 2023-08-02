@@ -9,54 +9,63 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Tab that allows user to add match details into text fields and adds match into match history
 public class AddTab extends Tab {
-    private static final String ADD_GEN_MESSAGE = "Added a match!";
-
-    private JScrollPane addPane;
-    private JTextArea addText;
-    private JLabel addMessage;
-    private static JTextField textField1;
-    private static JTextField textField2;
-    private static JTextField textField3;
-    private static JTextField textField4;
+    private JFrame frame;
+    private JPanel panel;
+    private JLabel labelStatus;
+    private JLabel labelPoints;
+    private JLabel labelEnemy;
+    private JLabel labelAgent;
+    private JButton b1;
+    private static TextField textFieldStatus;
+    private static TextField textFieldPoints;
+    private static TextField textFieldEnemy;
+    private static TextField textFieldAgent;
     private static String gameStatus;
     private static String points;
     private static String enemyPoints;
     private static AgentType gameType;
 
-    //REQUIRES: MatchHistoryUI controller that holds this tab
-    //EFFECTS: creates report tab with buttons and application status functionality
+    // REQUIRES: MatchHistoryUI controller that holds this tab
+    // EFFECTS: creates add tab that allows user to enter match details into text fields
     public AddTab(MatchHistoryUI controller) {
         super(controller);
         placeAddButton();
     }
 
-    //MODIFIES: this
-    //EFFECTS: adds a generate report button that prints app status when clicked
-    private void placeAddButton() {
-        JFrame frame = new JFrame();
-        JPanel panel = new JPanel();
+    // MODIFIES: this
+    // EFFECTS: initializes GUI frame, panel, labels, button
+    public void init() {
+        frame = new JFrame();
+        panel = new JPanel();
         frame.setSize(400, 400);
         frame.setTitle("Match History Console");
-        JButton b1 = new JButton(ButtonNames.ADD.getValue());
-        b1.setPreferredSize(new Dimension(90,30));
 
-        JLabel labelStatus = new JLabel("Enter win or lose");
-        TextField textFieldStatus = new TextField(30);
+        labelStatus = new JLabel("Enter win or lose");
+        textFieldStatus = new TextField(30);
         textFieldStatus.setColumns(45);
 
-        JLabel labelPoints = new JLabel("Enter points");
-        TextField textFieldPoints = new TextField(30);
+        labelPoints = new JLabel("Enter points");
+        textFieldPoints = new TextField(30);
         textFieldPoints.setColumns(45);
 
-        JLabel labelEnemy = new JLabel("Enter enemy points");
-        TextField textFieldEnemy = new TextField(30);
+        labelEnemy = new JLabel("Enter enemy points");
+        textFieldEnemy = new TextField(30);
         textFieldEnemy.setColumns(45);
 
-        JLabel labelAgent = new JLabel("Enter agent played");
-        TextField textFieldAgent = new TextField(30);
+        labelAgent = new JLabel("Enter agent played");
+        textFieldAgent = new TextField(30);
         textFieldAgent.setColumns(45);
 
+        b1 = new JButton(ButtonNames.ADD.getValue());
+        b1.setPreferredSize(new Dimension(90,30));
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: adds labels and text fields to JPanel
+    private void addToPanel() {
         panel.add(labelStatus);
         panel.add(textFieldStatus);
         panel.add(labelPoints);
@@ -66,6 +75,14 @@ public class AddTab extends Tab {
         panel.add(labelAgent);
         panel.add(textFieldAgent);
         panel.add(b1);
+    }
+
+    //MODIFIES: this
+    //EFFECTS: adds a generate report button that prints app status when clicked
+    private void placeAddButton() {
+        init();
+        addToPanel();
+
         frame.add(panel);
         frame.setVisible(true);
 
@@ -76,8 +93,7 @@ public class AddTab extends Tab {
                     gameStatus = textFieldStatus.getText().toLowerCase();
                     points = textFieldPoints.getText();
                     enemyPoints = textFieldEnemy.getText();
-                    String played = textFieldAgent.getText().toUpperCase();
-                    gameType = getController().getType(played);
+                    gameType = AgentType.valueOf(textFieldAgent.getText().toUpperCase());
                     getController().addCommand(gameStatus, points, enemyPoints, gameType);
                 }
             }

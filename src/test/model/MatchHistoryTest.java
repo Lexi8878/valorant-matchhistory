@@ -3,7 +3,6 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -117,21 +116,18 @@ public class MatchHistoryTest {
 
     @Test
     void testCalculateNumGamesPlayedAgent() {
-        mh1.addGame(g);
-        assertEquals(1, mh1.calculateNumGamesPlayedAgent(SOVA));
-        assertEquals(0, mh1.calculateNumGamesPlayedAgent(PHOENIX));
+        mh1.addGame(g3);
+        List<List<AgentType>> testCollection = mh1.calculateNumGamesPlayedAgent();
+        assertEquals(JETT, testCollection.get(0).get(0));
 
         mh2.addGame(g);
         mh2.addGame(g2);
-        assertEquals(2, mh2.calculateNumGamesPlayedAgent(SOVA));
         mh2.addGame(g3);
-        assertEquals(2, mh2.calculateNumGamesPlayedAgent(SOVA));
-        assertEquals(0, mh2.calculateNumGamesPlayedAgent(BRIMSTONE));
+        List<List<AgentType>> testCollection2 = mh2.calculateNumGamesPlayedAgent();
+        assertEquals(SOVA, testCollection2.get(0).get(0));
+
         mh2.addGame(g4);
-        assertEquals(3, mh2.calculateNumGamesPlayedAgent(SOVA));
-
-        assertEquals(0, mh3.calculateNumGamesPlayedAgent(JETT));
-
-        assertEquals(0, mh5.calculateNumGamesPlayedAgent(SAGE));
+        List<List<AgentType>> testCollection3 = mh3.calculateNumGamesPlayedAgent();
+        assertNull(testCollection3.get(0).get(0));
     }
 }
