@@ -23,18 +23,18 @@ public class ViewTab extends Tab {
 
         placeViewButton();
 
-        JPanel reportBlock = new JPanel(new GridLayout(2, 1));
-        reportBlock.setSize(MatchHistoryUI.WIDTH - (MatchHistoryUI.WIDTH / 5),
+        JPanel viewScrollPanel = new JPanel(new GridLayout(2, 1));
+        viewScrollPanel.setSize(MatchHistoryUI.WIDTH - (MatchHistoryUI.WIDTH / 5),
                 MatchHistoryUI.HEIGHT - (MatchHistoryUI.HEIGHT / 5));
         viewMessage = new JLabel("");
         viewPane = new JScrollPane(new JTextArea(6, 40));
         viewText = new JTextArea("", 6, 40);
         viewText.setVisible(true);
 
-        reportBlock.add(viewMessage);
-        reportBlock.add(viewPane);
+        viewScrollPanel.add(viewMessage);
+        viewScrollPanel.add(viewPane);
 
-        add(reportBlock);
+        add(viewScrollPanel);
     }
 
     //MODIFIES: this

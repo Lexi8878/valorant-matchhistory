@@ -1,31 +1,46 @@
 package ui;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.*;
 
+import static java.awt.Font.*;
+
+// a bar chart showing the agent names on the x-axis and the number of games played on the y-axis
 public class BarChart extends JPanel {
     private double[] values;
     private String[] labels;
-    private Color[] colors;
+    private Color[] colours;
     private String title;
     private double minValue;
     private double maxValue;
+    private int panelWidth;
+    private int panelHeight;
+    private int barWidth;
 
-    public BarChart(double[] values, String[] labels, Color[] colors, String title) {
+    private File fontFile;
+    private Font font;
+    private FontMetrics labelMeasurements;
+
+    private int titleWidth;
+    private int labelHeight;
+    private int labelWidth;
+    private int top;
+
+    // EFFECTS: constructs a new bar chart with a title, labels for axis, values for axis and colours
+    public BarChart(String title, String[] labels, double[] values, Color[] colours) {
+        this.title = title;
         this.labels = labels;
         this.values = values;
-        this.colors = colors;
-        this.title = title;
+        this.colours = colours;
+        barWidth = 120;
     }
 
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        if (values == null || values.length == 0) {
-            return;
-        }
-
-        double minValue = 0;
-        double maxValue = 0;
+    // EFFECTS: sets the min and max values on the bar chart
+    public void setValues() {
+        minValue = 0;
+        maxValue = 0;
         for (int i = 0; i < values.length; i++) {
             if (minValue > values[i]) {
                 minValue = values[i];
@@ -34,51 +49,75 @@ public class BarChart extends JPanel {
                 maxValue = values[i];
             }
         }
+    }
 
-        Dimension dim = getSize();
-        int panelWidth = dim.width;
-        int panelHeight = dim.height;
-        int barWidth = panelWidth / values.length;
+    // MODIFIES: this
+    // EFFECTS: initializes the chart's dimensions, title/labels
+    public void init(Graphics g) {
+        Dimension dimension = getSize();
+        panelWidth = dimension.width;
+        panelHeight = dimension.height - 20;
 
-        Font titleFont = new Font("Book Antiqua", Font.BOLD, 15);
-        FontMetrics titleFontMetrics = g.getFontMetrics(titleFont);
-
-        Font labelFont = new Font("Book Antiqua", Font.PLAIN, 14);
-        FontMetrics labelFontMetrics = g.getFontMetrics(labelFont);
-
-        int titleWidth = titleFontMetrics.stringWidth(title);
-        int stringHeight = titleFontMetrics.getAscent();
-        int stringWidth = (panelWidth - titleWidth) / 2;
-        g.setFont(titleFont);
-        g.drawString(title, stringWidth, stringHeight);
-
-        int top = titleFontMetrics.getHeight();
-        int bottom = labelFontMetrics.getHeight();
-        if (maxValue == minValue) {
-            return;
+        fontFile = new File("./Fonts/Valorant Font.ttf");
+        try {
+            font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+        } catch (FontFormatException e) {
+            System.out.println("Could not find font");
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            System.out.println("Could not find font");
+            throw new RuntimeException(e);
         }
-        double scale = (panelHeight - top - bottom) / (maxValue - minValue);
-        stringHeight = panelHeight - labelFontMetrics.getDescent();
-        g.setFont(labelFont);
-        for (int j = 0; j < values.length; j++) {
-            int valueP = j * barWidth + 1;
-            int valueQ = top;
-            int height = (int) (values[j] * scale);
-            if (values[j] >= 0) {
-                valueQ += (int) ((maxValue - values[j]) * scale);
+        font = font.deriveFont(BOLD, 15);
+        labelMeasurements = g.getFontMetrics(font);
+
+        titleWidth = labelMeasurements.stringWidth(title);
+        labelHeight = labelMeasurements.getAscent();
+        labelWidth = (panelWidth - titleWidth) / 2;
+        g.setFont(font);
+        g.drawString(title, labelWidth, labelHeight);
+
+        top = labelMeasurements.getHeight();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets the height/width and fills colours of the bars
+    public void setScale(Graphics g) {
+        double scale = (panelHeight - (top * 2)) / (maxValue - minValue);
+        labelHeight = panelHeight - labelMeasurements.getDescent();
+
+        int i = 0;
+        for (double value: values) {
+            int x = i * barWidth + 1;
+            int y = top;
+            int height = (int) (values[i] * scale);
+            if (values[i] >= 0) {
+                y += (int) ((maxValue - values[i]) * scale);
             } else {
-                valueQ += (int) (maxValue * scale);
+                y += (int) (maxValue * scale);
                 height = -height;
             }
 
-            g.setColor(colors[j]);
-            g.fillRect(valueP, valueQ, barWidth - 2, height);
+            g.setColor(colours[i]);
+            g.fillRect(x, y, barWidth - 3, height);
             g.setColor(Color.black);
-            g.drawRect(valueP, valueQ, barWidth - 2, height);
+            g.drawRect(x, y, barWidth - 3, height);
 
-            int labelWidth = labelFontMetrics.stringWidth(labels[j]);
-            stringWidth = j * barWidth + (barWidth - labelWidth) / 2;
-            g.drawString(labels[j], stringWidth, stringHeight);
+            labelWidth = labelMeasurements.stringWidth(labels[i]);
+            labelWidth = i * barWidth + (barWidth - labelWidth) / 2;
+            g.drawString(labels[i], labelWidth, labelHeight + 15);
+            i++;
         }
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: constructs the bar graph
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        setValues();
+        init(g);
+        setScale(g);
     }
 }

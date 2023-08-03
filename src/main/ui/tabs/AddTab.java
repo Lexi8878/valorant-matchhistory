@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 
 // Tab that allows user to add match details into text fields and adds match into match history
 public class AddTab extends Tab {
-    private JFrame frame;
     private JPanel panel;
     private JLabel labelStatus;
     private JLabel labelPoints;
@@ -37,10 +36,9 @@ public class AddTab extends Tab {
     // MODIFIES: this
     // EFFECTS: initializes GUI frame, panel, labels, button
     public void init() {
-        frame = new JFrame();
+        setLayout(new GridLayout(1, 20));
         panel = new JPanel();
-        frame.setSize(400, 400);
-        frame.setTitle("Match History Console");
+        panel.setSize(600, 400);
 
         labelStatus = new JLabel("Enter win or lose");
         textFieldStatus = new TextField(30);
@@ -83,8 +81,8 @@ public class AddTab extends Tab {
         init();
         addToPanel();
 
-        frame.add(panel);
-        frame.setVisible(true);
+        this.add(panel);
+        this.setVisible(true);
 
         b1.addActionListener(new ActionListener() {
             @Override

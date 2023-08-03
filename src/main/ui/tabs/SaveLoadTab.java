@@ -8,11 +8,11 @@ import java.awt.*;
 
 // Tab where user can save and load their current match history
 public class SaveLoadTab extends Tab {
-    private static final String INIT_GREETING = "Save or load match history?";
-    private JLabel greeting;
+    private static final String INIT_MESSAGE = "Save or load match history?";
+    private JLabel message;
 
-    //REQUIRES: MatchHistoryUI controller that holds this tab
-    //EFFECTS: constructs a save/load tab with buttons and greeting
+    // REQUIRES: MatchHistoryUI controller that holds this tab
+    // EFFECTS: constructs a save/load tab with buttons and message
     public SaveLoadTab(MatchHistoryUI controller) {
         super(controller);
 
@@ -23,11 +23,11 @@ public class SaveLoadTab extends Tab {
     }
 
     // MODIFIES: this
-    //EFFECTS: creates greeting at top of console
+    // EFFECTS: creates message at top of console
     private void placeGreeting() {
-        greeting = new JLabel(INIT_GREETING, JLabel.CENTER);
-        greeting.setSize(WIDTH, HEIGHT / 3);
-        this.add(greeting);
+        message = new JLabel(INIT_MESSAGE, JLabel.CENTER);
+        message.setSize(WIDTH, HEIGHT / 3);
+        this.add(message);
     }
 
     // MODIFIES: this
@@ -42,12 +42,12 @@ public class SaveLoadTab extends Tab {
 
         b1.addActionListener(e -> {
             getController().saveMatchHistory();
-            greeting.setText("Saving match history!");
+            message.setText("Saving match history!");
         });
 
         b2.addActionListener(e -> {
             getController().loadMatchHistory();
-            greeting.setText("Loading match history!");
+            message.setText("Loading match history!");
         });
 
         this.add(buttonRow);

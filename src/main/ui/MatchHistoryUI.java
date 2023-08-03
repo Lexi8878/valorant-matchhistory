@@ -67,25 +67,15 @@ public class MatchHistoryUI extends JFrame {
         doAddGame(matchHistory, new Game(gameStatus, points, enemyPoints, gameType));
     }
 
-    // REQUIRES: match history must not be empty
-    // EFFECTS: takes user's input and displays most played agent
-    public String agentCommand() {
-        return doCalculateNumGamesPlayedAgent(matchHistory);
-    }
-
     // EFFECTS: calculates and displays user's win rate percent
     public String winrateCommand() {
         double wr = doCalculate(matchHistory);
         return "Your win rate is: " + wr + "%";
     }
 
-    // EFFECTS: returns a list of how many wins user has on each agent
-    public double[] getWinsOnAgents() {
-        return doWinsOnAgent(matchHistory);
-    }
-
-    public double[] doWinsOnAgent(MatchHistory mh) {
-        return mh.getWinsOnAgent();
+    // EFFECTS: returns a list of how many games user played on each agent
+    public double[] getGamesOnAgents(MatchHistory mh) {
+        return mh.getGamesOnAgent();
     }
 
     // EFFECTS: Gets the user's win rate
@@ -97,19 +87,6 @@ public class MatchHistoryUI extends JFrame {
     // EFFECTS: Adds a game to the user's match history
     private void doAddGame(MatchHistory mh, Game g) {
         mh.addGame(g);
-    }
-
-    private String doCalculateNumGamesPlayedAgent(MatchHistory mh) {
-        List<List<AgentType>> myCollection = mh.calculateNumGamesPlayedAgent();
-        int largest = 0;
-        String type = null;
-        for (List<AgentType> lists: myCollection) {
-            if (lists.size() > largest) {
-                largest = lists.size();
-                type = String.valueOf(lists.get(0));
-            }
-        }
-        return "Most played agent: " + type + " with " + largest + " game(s).";
     }
 
     // EFFECTS: saves match history to file

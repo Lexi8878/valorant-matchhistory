@@ -22,20 +22,22 @@ be useful to track the matches I've played and to see my improvement over time.
 
 - As a user, I want to be able to create a new match and add it to a list of previous matches 
 (add it to the match history)
-- As a user, I want to be able to calculate my win rate
-- As a user, I want to be able to view the details of all my matches I've added into the match history
-- As a user, I want to be able to see how many games I've won on each agent through a bar graph
+- As a user, I want to be able to calculate my win rate based off of all the matches I've added
+- As a user, I want to be able to view all my matches I've added into the match history
+- As a user, I want to be able to see and compare how many games I've played on each agent through a bar graph
 - As a user, I want to have the option to save my current match history to file
 - As a user, I want to have the option to load my current match history from file
 
 ## Instructions for Grader:
-- You can generate the first required action related to adding Xs to a Y by using the add match tab
+- You can generate the first required action related to adding Xs to a Y by going into the add tab
 and typing the match details into the text fields, then pressing the button labeled "add"
 - You can generate the second required action related to adding Xs to a Y by going into the winrate/agent
 tab, then pressing the button labeled "calculate win rate"
 - You can locate my visual component by going into the winrate/agent tab, then pressing the button labeled
-"See agent wins"
+"See number of games on agents"
 - You can save the state of my application by going into the save/load tab, then pressing the button 
 labeled "save match history"
 - You can reload the state of my application by going into the save/load tab, then pressing the button
   labeled "load match history"
+- You can view all the Xs added into the Y by going into the view tab, then pressing the button labeled
+"Match History Status"

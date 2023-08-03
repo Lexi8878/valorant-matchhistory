@@ -5,12 +5,16 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 // Represents a user's match history, that stores all the games a user has played
 public class MatchHistory implements Writable {
     private List<Game> games;
+    private double sovaCount;
+    private double phoenixCount;
+    private double brimstoneCount;
+    private double jettCount;
+    private double sageCount;
 
     // EFFECTS: Constructs a match history with an empty list of games
     public MatchHistory() {
@@ -26,7 +30,7 @@ public class MatchHistory implements Writable {
     // getters
     // EFFECTS: Displays the details of the most recent game in the match history
     public List<String> getDisplay() {
-        String history = null;
+        String history;
         List<String> historyList = new ArrayList<>();
         for (Game g: games) {
             String s = g.getStatus();
@@ -111,8 +115,7 @@ public class MatchHistory implements Writable {
 
     //EFFECTS: returns a list of matches in this currently in match history
     public List<String> getMatchesRunning() {
-        List<String> matchesRunning = getDisplay();
-        return matchesRunning;
+        return getDisplay();
     }
 
     //EFFECTS: returns a String list of matches currently in match history
@@ -126,34 +129,44 @@ public class MatchHistory implements Writable {
         return status.toString();
     }
 
-    public double[] getWinsOnAgent() {
-        double sovaCount = 0;
-        double phoenixCount = 0;
-        double brimstoneCount = 0;
-        double jettCount = 0;
-        double sageCount = 0;
-        List<Double> doubleList = new ArrayList<>();
-
+    public void getCounts() {
         for (Game g: games) {
-            if (String.valueOf(g.getAgent()).equals("SOVA")) {
-                sovaCount++;
-            } else if (String.valueOf(g.getAgent()).equals("PHOENIX")) {
-                phoenixCount++;
-            } else if (String.valueOf(g.getAgent()).equals("BRIMSTONE")) {
-                brimstoneCount++;
-            } else if (String.valueOf(g.getAgent()).equals("JETT")) {
-                jettCount++;
-            } else {
-                sageCount++;
+            switch (String.valueOf(g.getAgent())) {
+                case "SOVA":
+                    sovaCount++;
+                    break;
+                case "PHOENIX":
+                    phoenixCount++;
+                    break;
+                case "BRIMSTONE":
+                    brimstoneCount++;
+                    break;
+                case "SAGE":
+                    sageCount++;
+                    break;
+                default:
+                    jettCount++;
+                    break;
             }
         }
+    }
+
+    public double[] getGamesOnAgent() {
+        sovaCount = 0;
+        phoenixCount = 0;
+        brimstoneCount = 0;
+        jettCount = 0;
+        sageCount = 0;
+        List<Double> doubleList = new ArrayList<>();
+
+        getCounts();
+
         doubleList.add(sovaCount);
         doubleList.add(phoenixCount);
         doubleList.add(brimstoneCount);
-        doubleList.add(jettCount);
         doubleList.add(sageCount);
-        double[] array = doubleList.stream().mapToDouble(i -> i).toArray();
-        return array;
+        doubleList.add(jettCount);
+        return doubleList.stream().mapToDouble(i -> i).toArray();
     }
 
 }

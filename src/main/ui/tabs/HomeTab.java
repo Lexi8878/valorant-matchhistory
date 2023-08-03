@@ -13,8 +13,8 @@ public class HomeTab extends Tab {
     private static final String INIT_GREETING = "Welcome";
     private JLabel greeting;
 
-    //REQUIRES: MatchHistoryUI controller that holds this tab
-    //EFFECTS: constructs a home tab for console with buttons and a greeting
+    // REQUIRES: MatchHistoryUI controller that holds this tab
+    // EFFECTS: constructs a home tab for console with buttons and a greeting
     public HomeTab(MatchHistoryUI controller) {
         super(controller);
 
@@ -23,11 +23,11 @@ public class HomeTab extends Tab {
         placeGreeting();
         placeAddButton();
         placeWinrateButton();
-        placeStatusButton();
+        placeViewButton();
     }
 
     // MODIFIES: this
-    //EFFECTS: creates greeting at top of console
+    // EFFECTS: creates greeting at top of console
     private void placeGreeting() {
         greeting = new JLabel(INIT_GREETING, JLabel.CENTER);
         greeting.setSize(WIDTH, HEIGHT / 3);
@@ -35,7 +35,7 @@ public class HomeTab extends Tab {
     }
 
     // MODIFIES: this
-    //EFFECTS: constructs a status button that switches to the view match history tab on the console
+    // EFFECTS: constructs an add button that switches to the add tab on the console
     private void placeAddButton() {
         JPanel addBlock = new JPanel();
         JButton addButton = new JButton(ButtonNames.GO_TO_ADD.getValue());
@@ -55,7 +55,7 @@ public class HomeTab extends Tab {
     }
 
     // MODIFIES: this
-    //EFFECTS: constructs a status button that switches to the view match history tab on the console
+    // EFFECTS: constructs a winrate button that switches to the winrate/agent tab on the console
     private void placeWinrateButton() {
         JPanel winrateBlock = new JPanel();
         JButton winrateButton = new JButton(ButtonNames.GO_TO_WINRATE.getValue());
@@ -75,8 +75,8 @@ public class HomeTab extends Tab {
     }
 
     // MODIFIES: this
-    //EFFECTS: constructs a status button that switches to the view match history tab on the console
-    private void placeStatusButton() {
+    // EFFECTS: constructs a view button that switches to the view match history tab on the console
+    private void placeViewButton() {
         JPanel statusBlock = new JPanel();
         JButton statusButton = new JButton(ButtonNames.GO_TO_MATCH_HISTORY.getValue());
         statusBlock.add(formatButtonRow(statusButton));
