@@ -79,6 +79,15 @@ public class MatchHistoryUI extends JFrame {
         return "Your win rate is: " + wr + "%";
     }
 
+    // EFFECTS: returns a list of how many wins user has on each agent
+    public double[] getWinsOnAgents() {
+        return doWinsOnAgent(matchHistory);
+    }
+
+    public double[] doWinsOnAgent(MatchHistory mh) {
+        return mh.getWinsOnAgent();
+    }
+
     // EFFECTS: Gets the user's win rate
     public double doCalculate(MatchHistory mh) {
         return mh.calculateWinRate();

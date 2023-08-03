@@ -126,4 +126,34 @@ public class MatchHistory implements Writable {
         return status.toString();
     }
 
+    public double[] getWinsOnAgent() {
+        double sovaCount = 0;
+        double phoenixCount = 0;
+        double brimstoneCount = 0;
+        double jettCount = 0;
+        double sageCount = 0;
+        List<Double> doubleList = new ArrayList<>();
+
+        for (Game g: games) {
+            if (String.valueOf(g.getAgent()).equals("SOVA")) {
+                sovaCount++;
+            } else if (String.valueOf(g.getAgent()).equals("PHOENIX")) {
+                phoenixCount++;
+            } else if (String.valueOf(g.getAgent()).equals("BRIMSTONE")) {
+                brimstoneCount++;
+            } else if (String.valueOf(g.getAgent()).equals("JETT")) {
+                jettCount++;
+            } else {
+                sageCount++;
+            }
+        }
+        doubleList.add(sovaCount);
+        doubleList.add(phoenixCount);
+        doubleList.add(brimstoneCount);
+        doubleList.add(jettCount);
+        doubleList.add(sageCount);
+        double[] array = doubleList.stream().mapToDouble(i -> i).toArray();
+        return array;
+    }
+
 }

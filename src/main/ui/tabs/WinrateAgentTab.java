@@ -1,5 +1,6 @@
 package ui.tabs;
 
+import ui.BarChart;
 import ui.ButtonNames;
 import ui.MatchHistoryUI;
 
@@ -45,6 +46,7 @@ public class WinrateAgentTab extends Tab {
         buttonRow.setSize(WIDTH, HEIGHT / 6);
     }
 
+
     // MODIFIES: this
     //EFFECTS: creates winrate and agent buttons that change message when clicked
     private void placeCalculateButton() {
@@ -66,8 +68,28 @@ public class WinrateAgentTab extends Tab {
             public void actionPerformed(ActionEvent e) {
                 String buttonPressed = e.getActionCommand();
                 if (buttonPressed.equals(ButtonNames.AGENT.getValue())) {
-                    String agent = getController().agentCommand();
-                    greeting.setText(agent);
+                    //String agent = getController().agentCommand();
+                    //greeting.setText(agent);
+                    JFrame.setDefaultLookAndFeelDecorated(true);
+                    JFrame frame = new JFrame("Bar Chart");
+                    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    frame.setSize(600, 400);
+
+                    String title = "Number of wins on each agent";
+                    //double[] values = new double[]{1,2,3,4,5};
+                    double[] values = getController().getWinsOnAgents();
+                    String[] labels = new String[]{"SOVA","PHOENIX","BRIMSTONE","SAGE","JETT"};
+                    Color[] colors = new Color[]{
+                            Color.red,
+                            Color.orange,
+                            Color.yellow,
+                            Color.green,
+                            Color.blue
+                    };
+                    BarChart bc = new BarChart(values, labels, colors, title);
+
+                    frame.add(bc);
+                    frame.setVisible(true);
                 }
             }
         });
