@@ -12,7 +12,7 @@ import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import static java.awt.Color.darkGray;
+import static java.awt.Color.*;
 
 
 // The image was taken from: https://1000logos.net/valorant-logo/
@@ -25,24 +25,23 @@ public class MatchHistoryUI extends JFrame {
     public static final int WINRATE_AGENT_TAB_INDEX = 4;
     public static final int VIEW_TAB_INDEX = 5;
     public static final int SAVE_LOAD_TAB_INDEX = 6;
+    public static final int WIDTH = 600;
+    public static final int HEIGHT = 400;
+    private static final String JSON_STORE = "./data/matchhistory.json";
 
+    private JFrame frame;
+    private JTabbedPane sidebar;
     private JPanel lightDarkTab;
     private JPanel homeTab;
     private JPanel addTab;
     private JPanel winrateAgentTab;
     private JPanel viewTab;
     private JPanel saveLoadTab;
-
     private Color original;
 
-    public static final int WIDTH = 600;
-    public static final int HEIGHT = 400;
-    private JTabbedPane sidebar;
     private MatchHistory matchHistory;
-    private static final String JSON_STORE = "./data/matchhistory.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
-    private JFrame frame;
 
     public static void main(String[] args) {
         try {
@@ -163,17 +162,21 @@ public class MatchHistoryUI extends JFrame {
         winrateAgentTab.setBackground(original);
         viewTab.setBackground(original);
         saveLoadTab.setBackground(original);
+        sidebar.setBackground(original);
+        frame.getContentPane().setBackground(original);
     }
 
     // MODIFIES: this
     // EFFECTS: changes background colour to dark mode
     public void changeThemeDark() {
-        lightDarkTab.setBackground(darkGray);
-        homeTab.setBackground(darkGray);
-        addTab.setBackground(darkGray);
-        winrateAgentTab.setBackground(darkGray);
-        viewTab.setBackground(darkGray);
-        saveLoadTab.setBackground(darkGray);
+        lightDarkTab.setBackground(GRAY);
+        homeTab.setBackground(GRAY);
+        addTab.setBackground(GRAY);
+        winrateAgentTab.setBackground(GRAY);
+        viewTab.setBackground(GRAY);
+        saveLoadTab.setBackground(GRAY);
+        sidebar.setBackground(GRAY);
+        frame.getContentPane().setBackground(GRAY);
     }
 
     //EFFECTS: returns sidebar of this UI
