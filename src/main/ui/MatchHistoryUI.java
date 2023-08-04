@@ -8,18 +8,32 @@ import persistence.JsonWriter;
 import ui.tabs.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 
+import static java.awt.Color.darkGray;
+
+
+// The image was taken from: https://1000logos.net/valorant-logo/
 // User Interface for match history application
 public class MatchHistoryUI extends JFrame {
-    public static final int HOME_TAB_INDEX = 0;
-    public static final int ADD_TAB_INDEX = 1;
-    public static final int WINRATE_AGENT_TAB_INDEX = 2;
-    public static final int VIEW_TAB_INDEX = 3;
-    public static final int SAVE_LOAD_TAB_INDEX = 4;
+    public static final int IMAGE_INDEX = 0;
+    public static final int LIGHT_DARK_INDEX = 1;
+    public static final int HOME_TAB_INDEX = 2;
+    public static final int ADD_TAB_INDEX = 3;
+    public static final int WINRATE_AGENT_TAB_INDEX = 4;
+    public static final int VIEW_TAB_INDEX = 5;
+    public static final int SAVE_LOAD_TAB_INDEX = 6;
 
+    private JPanel lightDarkTab;
+    private JPanel homeTab;
+    private JPanel addTab;
+    private JPanel winrateAgentTab;
+    private JPanel viewTab;
+    private JPanel saveLoadTab;
+
+    private Color original;
 
     public static final int WIDTH = 600;
     public static final int HEIGHT = 400;
@@ -28,6 +42,7 @@ public class MatchHistoryUI extends JFrame {
     private static final String JSON_STORE = "./data/matchhistory.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+    private JFrame frame;
 
     public static void main(String[] args) {
         try {
@@ -40,7 +55,7 @@ public class MatchHistoryUI extends JFrame {
     //MODIFIES: this
     //EFFECTS: creates MatchHistoryUI and read/writers, displays sidebar and tabs
     private MatchHistoryUI() throws FileNotFoundException {
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         frame.setTitle("MatchHistory Console");
         frame.setSize(WIDTH, HEIGHT);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -115,12 +130,16 @@ public class MatchHistoryUI extends JFrame {
     //MODIFIES: this
     //EFFECTS: adds home tab, view tab, save/load tab to this UI
     private void loadTabs() {
-        JPanel homeTab = new HomeTab(this);
-        JPanel addTab = new AddTab(this);
-        JPanel winrateAgentTab = new WinrateAgentTab(this);
-        JPanel viewTab = new ViewTab(this);
-        JPanel quitTab = new SaveLoadTab(this);
+        lightDarkTab = new LightDarkTab(this);
+        homeTab = new HomeTab(this);
+        addTab = new AddTab(this);
+        winrateAgentTab = new WinrateAgentTab(this);
+        viewTab = new ViewTab(this);
+        saveLoadTab = new SaveLoadTab(this);
 
+        sidebar.add(new JLabel(new ImageIcon("Fonts/Valorant-Logo1.png")), IMAGE_INDEX);
+        sidebar.add(lightDarkTab, LIGHT_DARK_INDEX);
+        sidebar.setTitleAt(LIGHT_DARK_INDEX, "Mode");
         sidebar.add(homeTab, HOME_TAB_INDEX);
         sidebar.setTitleAt(HOME_TAB_INDEX, "Home");
         sidebar.add(addTab, ADD_TAB_INDEX);
@@ -129,8 +148,32 @@ public class MatchHistoryUI extends JFrame {
         sidebar.setTitleAt(WINRATE_AGENT_TAB_INDEX, "Winrate/Agent");
         sidebar.add(viewTab, VIEW_TAB_INDEX);
         sidebar.setTitleAt(VIEW_TAB_INDEX, "View");
-        sidebar.add(quitTab, SAVE_LOAD_TAB_INDEX);
+        sidebar.add(saveLoadTab, SAVE_LOAD_TAB_INDEX);
         sidebar.setTitleAt(SAVE_LOAD_TAB_INDEX, "Save/Load");
+
+        original = homeTab.getBackground();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: changes background colour to light mode
+    public void changeThemeLight() {
+        lightDarkTab.setBackground(original);
+        homeTab.setBackground(original);
+        addTab.setBackground(original);
+        winrateAgentTab.setBackground(original);
+        viewTab.setBackground(original);
+        saveLoadTab.setBackground(original);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: changes background colour to dark mode
+    public void changeThemeDark() {
+        lightDarkTab.setBackground(darkGray);
+        homeTab.setBackground(darkGray);
+        addTab.setBackground(darkGray);
+        winrateAgentTab.setBackground(darkGray);
+        viewTab.setBackground(darkGray);
+        saveLoadTab.setBackground(darkGray);
     }
 
     //EFFECTS: returns sidebar of this UI

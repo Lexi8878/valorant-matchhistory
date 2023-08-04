@@ -9,6 +9,8 @@ public enum ButtonNames {
     GO_TO_MATCH_HISTORY("Current Match History"),
     GO_TO_WINRATE("Calculate stats"),
     GENERATE_MATCH_HISTORY("Match History Status"),
+    LIGHT("Light mode"),
+    DARK("Dark mode"),
     SAVE("Save match history"),
     LOAD("Load match history");
 

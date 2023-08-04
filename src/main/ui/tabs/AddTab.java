@@ -44,7 +44,7 @@ public class AddTab extends Tab {
         textFieldStatus = new TextField(30);
         textFieldStatus.setColumns(45);
 
-        labelPoints = new JLabel("Enter points");
+        labelPoints = new JLabel("Enter team points");
         textFieldPoints = new TextField(30);
         textFieldPoints.setColumns(45);
 
