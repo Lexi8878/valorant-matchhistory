@@ -3,7 +3,9 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -115,19 +117,40 @@ public class MatchHistoryTest {
     }
 
     @Test
-    void testCalculateNumGamesPlayedAgent() {
+    void testGetMatchesRunning() {
+        mh1.addGame(g);
+        mh1.addGame(g2);
         mh1.addGame(g3);
-        List<List<AgentType>> testCollection = mh1.calculateNumGamesPlayedAgent();
-        assertEquals(JETT, testCollection.get(0).get(0));
+        List<String> testList = mh1.getMatchesRunning();
+        assertEquals(3, testList.size());
+        assertEquals("WIN 13-0 as SOVA", testList.get(0));
+        assertEquals("LOSE 5-13 as SOVA", testList.get(1));
+        assertEquals("WIN 13-12 as JETT", testList.get(2));
+    }
 
-        mh2.addGame(g);
-        mh2.addGame(g2);
-        mh2.addGame(g3);
-        List<List<AgentType>> testCollection2 = mh2.calculateNumGamesPlayedAgent();
-        assertEquals(SOVA, testCollection2.get(0).get(0));
+    @Test
+    void testMatchRunningStatus() {
+        mh1.addGame(g);
+        mh1.addGame(g2);
+        mh1.addGame(g3);
+        assertEquals("\nWIN 13-0 as SOVA\nLOSE 5-13 as SOVA\nWIN 13-12 as JETT", mh1.matchRunningStatus());
+    }
 
-        mh2.addGame(g4);
-        List<List<AgentType>> testCollection3 = mh3.calculateNumGamesPlayedAgent();
-        assertNull(testCollection3.get(0).get(0));
+    @Test
+    void testGetGamesOnAgent() {
+        mh1.addGame(g);
+        mh1.addGame(g2);
+        mh1.addGame(g3);
+        mh1.addGame(new Game("win", "13", "0", PHOENIX));
+        mh1.addGame(new Game("win", "13", "0", SAGE));
+        mh1.addGame(new Game("win", "13", "0", BRIMSTONE));
+
+        List<Double> testDouble = Arrays.stream(mh1.getGamesOnAgent()).boxed().collect(Collectors.toList());
+        assertEquals( 5,testDouble.size());
+        assertEquals( 2,testDouble.get(0));
+        assertEquals( 1,testDouble.get(1));
+        assertEquals( 1,testDouble.get(2));
+        assertEquals( 1,testDouble.get(3));
+        assertEquals( 1,testDouble.get(4));
     }
 }

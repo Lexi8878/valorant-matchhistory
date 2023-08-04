@@ -7,6 +7,8 @@ import javax.swing.*;
 
 import static java.awt.Font.*;
 
+// Some of following code is taken from the Bar Chart example in Java Examples from javacodex.com:
+// https://www.javacodex.com/Graphics/Bar-Chart
 // a bar chart showing the agent names on the x-axis and the number of games played on the y-axis
 public class BarChart extends JPanel {
     private double[] values;
@@ -35,18 +37,18 @@ public class BarChart extends JPanel {
         this.values = values;
         this.colours = colours;
         barWidth = 120;
+        minValue = 0;
+        maxValue = 0;
     }
 
     // EFFECTS: sets the min and max values on the bar chart
     public void setValues() {
-        minValue = 0;
-        maxValue = 0;
-        for (int i = 0; i < values.length; i++) {
-            if (minValue > values[i]) {
-                minValue = values[i];
+        for (double value : values) {
+            if (minValue > value) {
+                minValue = value;
             }
-            if (maxValue < values[i]) {
-                maxValue = values[i];
+            if (maxValue < value) {
+                maxValue = value;
             }
         }
     }
@@ -61,10 +63,7 @@ public class BarChart extends JPanel {
         fontFile = new File("./Fonts/Valorant Font.ttf");
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
-        } catch (FontFormatException e) {
-            System.out.println("Could not find font");
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+        } catch (FontFormatException | IOException e) {
             System.out.println("Could not find font");
             throw new RuntimeException(e);
         }

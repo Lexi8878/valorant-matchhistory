@@ -27,7 +27,6 @@ public class MatchHistory implements Writable {
         this.games.add(g);
     }
 
-    // getters
     // EFFECTS: Displays the details of the most recent game in the match history
     public List<String> getDisplay() {
         String history;
@@ -41,11 +40,6 @@ public class MatchHistory implements Writable {
             historyList.add(history);
         }
         return historyList;
-    }
-
-    // EFFECTS: Gets the number of games played in a match history
-    public int getNumGames() {
-        return this.games.size();
     }
 
     // EFFECTS: Gets the number of games won in a match history
@@ -71,27 +65,9 @@ public class MatchHistory implements Writable {
         }
     }
 
-    // EFFECTS: Calculates how many times the user has played a certain agent
-    public List<List<AgentType>> calculateNumGamesPlayedAgent() {
-        List<List<AgentType>> typeListCollection = new ArrayList<>();
-        AgentType type = null;
-        for (Game g: games) {
-            if (g.getAgent() != type) {
-                List<AgentType> typeList = new ArrayList<>();
-                type = g.getAgent();
-                typeList.add(type);
-                typeListCollection.add(typeList);
-            } else {
-                for (List<AgentType> lists: typeListCollection) {
-                    for (AgentType at: lists) {
-                        if (at == type) {
-                            lists.add(type);
-                        }
-                    }
-                }
-            }
-        }
-        return typeListCollection;
+    // EFFECTS: Gets the number of games played in a match history
+    public int getNumGames() {
+        return this.games.size();
     }
 
     // EFFECTS: returns games in match history as JSON objects
@@ -113,7 +89,7 @@ public class MatchHistory implements Writable {
         return jsonArray;
     }
 
-    //EFFECTS: returns a list of matches in this currently in match history
+    //EFFECTS: returns a list of matches currently in match history
     public List<String> getMatchesRunning() {
         return getDisplay();
     }
@@ -129,6 +105,7 @@ public class MatchHistory implements Writable {
         return status.toString();
     }
 
+    // EFFECTS: iterates through the games list and adds 1 to the correct count
     public void getCounts() {
         for (Game g: games) {
             switch (String.valueOf(g.getAgent())) {
@@ -151,6 +128,7 @@ public class MatchHistory implements Writable {
         }
     }
 
+    // EFFECTS: adds the num of games played on each champ into a list and returns it
     public double[] getGamesOnAgent() {
         sovaCount = 0;
         phoenixCount = 0;
@@ -168,5 +146,4 @@ public class MatchHistory implements Writable {
         doubleList.add(jettCount);
         return doubleList.stream().mapToDouble(i -> i).toArray();
     }
-
 }

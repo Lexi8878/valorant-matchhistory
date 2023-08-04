@@ -18,13 +18,13 @@ public class SaveLoadTab extends Tab {
 
         setLayout(new GridLayout(3, 1));
 
-        placeGreeting();
+        placeMessage();
         placeSaveLoadButtons();
     }
 
     // MODIFIES: this
     // EFFECTS: creates message at top of console
-    private void placeGreeting() {
+    private void placeMessage() {
         message = new JLabel(INIT_MESSAGE, JLabel.CENTER);
         message.setSize(WIDTH, HEIGHT / 3);
         this.add(message);
