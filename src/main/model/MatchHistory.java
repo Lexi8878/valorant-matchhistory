@@ -25,6 +25,9 @@ public class MatchHistory implements Writable {
     // EFFECTS: Adds a single game to the user's match history
     public void addGame(Game g) {
         this.games.add(g);
+        EventLog.getInstance().logEvent(new Event("Added a match to match history ("
+                + g.getStatus() + ": " + g.getTeamPoints().toUpperCase() + "-"
+                + g.getEnemyPoints() + " as " + g.getAgent() + ")"));
     }
 
     // EFFECTS: Displays the details of the most recent game in the match history
@@ -39,6 +42,7 @@ public class MatchHistory implements Writable {
             history = s.toUpperCase() + " " + tp + "-" + ep + " as " + a;
             historyList.add(history);
         }
+        EventLog.getInstance().logEvent(new Event("Displayed matches in match history."));
         return historyList;
     }
 
@@ -59,8 +63,10 @@ public class MatchHistory implements Writable {
         double numG = getNumGames();
         double numGW = getNumGamesWon();
         if (numG == 0) {
+            EventLog.getInstance().logEvent(new Event("Win rate was calculated: 0%"));
             return 0;
         } else {
+            EventLog.getInstance().logEvent(new Event("Win rate was calculated: " + (numGW / numG) * 100 + "%"));
             return (numGW / numG) * 100;
         }
     }

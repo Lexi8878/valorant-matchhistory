@@ -1,6 +1,8 @@
 package ui;
 
 import model.AgentType;
+import model.Event;
+import model.EventLog;
 import model.Game;
 import model.MatchHistory;
 import persistence.JsonReader;
@@ -11,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Iterator;
 
 import static java.awt.Color.*;
 
@@ -57,7 +60,14 @@ public class MatchHistoryUI extends JFrame {
         frame = new JFrame();
         frame.setTitle("MatchHistory Console");
         frame.setSize(WIDTH, HEIGHT);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                printLogEvent();
+                System.exit(0);
+            }
+        });
 
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
@@ -179,8 +189,16 @@ public class MatchHistoryUI extends JFrame {
         frame.getContentPane().setBackground(GRAY);
     }
 
-    //EFFECTS: returns sidebar of this UI
+    // EFFECTS: returns sidebar of this UI
     public JTabbedPane getTabbedPane() {
         return sidebar;
+    }
+
+    // EFFECTS: iterates through event log and prints out the events
+    public void printLogEvent() {
+        Iterator<Event> it =  EventLog.getInstance().iterator();
+        while(it.hasNext()) {
+            System.out.println(it.next());
+        }
     }
 }
