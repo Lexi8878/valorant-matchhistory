@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// Tab that allows user to add match details into text fields and adds match into match history
+// Represents a tab that allows user to add match details into text fields and adds match into match history
 public class AddTab extends Tab {
     private JPanel panel;
     private JLabel labelStatus;

@@ -68,5 +68,8 @@ Fri Aug 04 16:04:34 PDT 2023
 Displayed matches in match history.
 
 ## Phase 4: Task 3
-
-- To try to improve my design, I would 
+- The WinrateAgentTab class allows user to calculate their win rate and to see a bar graph of the number of wins 
+on each agent. To try to improve my design, I could split up these tabs so each tab only has one responsibility.
+To do this, I would keep the original class to calculate the win rate and I would make a new class that deals with the
+bar graph. Then, I would move every method that relates to the bar graph into that new class. This would better comply 
+with the Single Responsibility Principle and would increase the cohesion in my program. 

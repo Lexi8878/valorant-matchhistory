@@ -6,7 +6,7 @@ import ui.MatchHistoryUI;
 import javax.swing.*;
 import java.awt.*;
 
-// Tab where user can save and load their current match history
+// Represents a tab where user can save and load their current match history
 public class SaveLoadTab extends Tab {
     private static final String INIT_MESSAGE = "Save or load match history?";
     private JLabel message;

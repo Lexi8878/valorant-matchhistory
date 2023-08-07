@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// home tab of match history application with buttons that sends user to different tabs
+// Represents the home tab of the match history application with buttons that sends user to different tabs
 public class HomeTab extends Tab {
     private static final String INIT_GREETING = "Welcome";
     private JLabel greeting;

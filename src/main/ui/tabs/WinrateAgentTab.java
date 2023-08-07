@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// tab where user can calculate their winrate or see their most played agent
+// Represents a tab where user can calculate their win rate or see their most played agent
 public class WinrateAgentTab extends Tab {
     private static final String INIT_MESSAGE = "Calculate win rate or see most played agents?";
     private JLabel message;

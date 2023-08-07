@@ -9,7 +9,7 @@ import static java.awt.Font.*;
 
 // Some of following code is taken from the Bar Chart example in Java Examples from javacodex.com:
 // https://www.javacodex.com/Graphics/Bar-Chart
-// a bar chart showing the agent names on the x-axis and the number of games played on the y-axis
+// Represents a bar chart showing the agent names on the x-axis and the number of games played on the y-axis
 public class BarChart extends JPanel {
     private double[] values;
     private String[] labels;
@@ -41,6 +41,7 @@ public class BarChart extends JPanel {
         maxValue = 0;
     }
 
+    // MODIFIES: this
     // EFFECTS: sets the min and max values on the bar chart
     public void setValues() {
         for (double value : values) {

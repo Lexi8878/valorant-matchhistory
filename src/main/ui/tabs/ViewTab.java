@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// tab where user can view all the matches in their match history
+// Represents a tab where user can view all the matches in their match history
 public class ViewTab extends Tab {
     private static final String VIEW_GEN_MESSAGE = "Current Match History";
 

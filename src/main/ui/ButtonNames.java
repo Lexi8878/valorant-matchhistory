@@ -1,6 +1,6 @@
 package ui;
 
-// enum of button names
+// Represents an enum of button names
 public enum ButtonNames {
     ADD("Add"),
     WINRATE("Calculate win rate"),
