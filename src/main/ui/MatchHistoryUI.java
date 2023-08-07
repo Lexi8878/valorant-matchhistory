@@ -119,7 +119,6 @@ public class MatchHistoryUI extends JFrame {
             jsonWriter.open();
             jsonWriter.write(matchHistory);
             jsonWriter.close();
-            System.out.println("Saved match history" + " to " + JSON_STORE);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
@@ -130,7 +129,6 @@ public class MatchHistoryUI extends JFrame {
     public void loadMatchHistory() {
         try {
             matchHistory = jsonReader.read();
-            System.out.println("Loaded match history" + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
