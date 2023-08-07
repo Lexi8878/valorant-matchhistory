@@ -28,6 +28,7 @@ public class Event {
         return description;
     }
 
+    // EFFECTS: evaluates if two event objects are equal based off of date logged and description
     @Override
 	public boolean equals(Object other) {
         if (other == null) {
@@ -43,6 +44,7 @@ public class Event {
         return (this.dateLogged.equals(otherEvent.dateLogged) && this.description.equals(otherEvent.description));
     }
 
+    // EFFECTS: returns the hashcode of event based on date logged and description
     @Override
 	public int hashCode() {
         return (HASH_CONSTANT * dateLogged.hashCode() + description.hashCode());
