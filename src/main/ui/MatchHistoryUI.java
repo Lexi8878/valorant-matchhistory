@@ -197,7 +197,7 @@ public class MatchHistoryUI extends JFrame {
     // EFFECTS: iterates through event log and prints out the events
     public void printLogEvent() {
         Iterator<Event> it =  EventLog.getInstance().iterator();
-        while(it.hasNext()) {
+        while (it.hasNext()) {
             System.out.println(it.next());
         }
     }

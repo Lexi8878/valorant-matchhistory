@@ -14,7 +14,7 @@ public class EventLog implements Iterable<Event> {
     // EFFECTS: creates an event log with an empty event log list
     private EventLog() {
         events = new ArrayList<Event>();
-	}
+    }
 
     // EFFECTS: returns instance of EventLog, if it doesn't already exist, it creates it
     public static EventLog getInstance() {
@@ -41,5 +41,5 @@ public class EventLog implements Iterable<Event> {
     @Override
 	public Iterator<Event> iterator() {
         return events.iterator();
-	}
+    }
 }

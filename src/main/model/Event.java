@@ -16,7 +16,7 @@ public class Event {
     public Event(String description) {
         dateLogged = Calendar.getInstance().getTime();
         this.description = description;
-	}
+    }
 
     // EFFECTS: gets the date/time of the event
     public Date getDate() {
@@ -52,5 +52,5 @@ public class Event {
     @Override
 	public String toString() {
         return dateLogged.toString() + "\n" + description;
-	}
+    }
 }
