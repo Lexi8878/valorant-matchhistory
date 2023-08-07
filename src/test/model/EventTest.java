@@ -40,6 +40,7 @@ public class EventTest {
         assertTrue(e.equals(e));
         assertFalse(e.equals(e3));
         assertFalse(e.equals(g));
+        assertTrue(e.hashCode() == e.hashCode());
         assertEquals("Added a match to match history.", e.getDescription());
         assertEquals("Win rate was calculated: 0%", e2.getDescription());
         assertEquals(d2, e2.getDate());
